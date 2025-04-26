@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antivirus UAMpanas</title>
+  <style>
+    :root {
+      --primary: #1f2937;
+      --secondary: #3b82f6;
+      --accent: #22c55e;
+      --text: #333333;
+      --light: #f8f9fa;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--light);
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 3rem 1rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .header-logos {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    header img {
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+    .uam-logo {
+      width: 180px;
+      height: auto;
+    }
+    .app-logo {
+      width: 100px;
+      height: 100px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      padding: 2rem;
+      margin: 2rem 0;
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.8rem;
+      background: var(--accent);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #16a34a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .btn-secondary {
+      background: var(--secondary);
+    }
+    .btn-secondary:hover {
+      background: #2563eb;
+    }
+    form {
+      margin-top: 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border 0.3s ease;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .feature-item {
+      background: rgba(59, 130, 246, 0.1);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--secondary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .feature-item img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .testimonial {
+      background: rgba(249, 250, 251, 0.8);
+      padding: 1.5rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .testimonial img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .testimonial-content {
+      flex: 1;
+    }
+    .testimonial-form {
+      background: rgba(249, 250, 251, 0.9);
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+    .alert {
+      padding: 1rem;
+      border-radius: 6px;
+      margin: 1rem 0;
+      display: none;
+    }
+    .alert-success {
+      background: #dcfce7;
+      color: #166534;
+      border-left: 4px solid #22c55e;
+    }
+    .alert-error {
+      background: #fee2e2;
+      color: #991b1b;
+      border-left: 4px solid #ef4444;
+    }
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+    .footer-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      margin-bottom: 1.5rem;
+    }
+    .footer-logo {
+      height: 100px;
+      width: auto;
+    }
+    @media (max-width: 768px) {
+      header {
+        padding: 2rem 1rem;
+      }
+      .header-content {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .header-logos {
+        gap: 1.5rem;
+      }
+      .uam-logo {
+        width: 150px;
+      }
+      .app-logo {
+        width: 90px;
+        height: 90px;
+      }
+      .features {
+        grid-template-columns: 1fr;
+      }
+      .footer-logos {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .footer-logo {
+        height: 90px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="header-logos">
+          <img src="https://lh5.googleusercontent.com/proxy/_2kgdsApltGVl7jrwcThtNtNTpLgw0dlzEjZ2e5IpAynQ9W_xcMY9Ka_MvcAEy-gN80Yn33dTIn7TcUN" alt="Logo UAM" class="uam-logo">
+          <img src="https://cdn-icons-png.freepik.com/256/16389/16389657.png?semt=ais_hybrid" alt="Logo UAMpanas" class="app-logo">
+        </div>
+        <div>
+          <h1>🛡️ Antivirus UAMpanas</h1>
+          <p>Protección avanzada para tu dispositivo móvil</p>
+          <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn" target="_blank" rel="noopener noreferrer">Descargar Ahora</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="caracteristicas" class="card">
+      <h2>Características Principales</h2>
+      <div class="features">
+        <div class="feature-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/2452/2452056.png" alt="Protección en tiempo real">
+          <h3>🔒 Protección en Tiempo Real</h3>
+          <p>Escaneo continuo contra malware, spyware y ransomware.</p>
+        </div>
+        <div class="feature-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/2452/2452039.png" alt="Cortafuegos">
+          <h3>🛡️ Cortafuegos Integrado</h3>
+          <p>Bloquea conexiones sospechosas y protege tu privacidad.</p>
+        </div>
+        <div class="feature-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" alt="Optimización móvil">
+          <h3>📱 Optimizado para Móviles</h3>
+          <p>Bajo consumo de batería y recursos del sistema.</p>
+        </div>
+        <div class="feature-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/64/64673.png" alt="Escaneo rápido">
+          <h3>⚡ Escaneo Ultra Rápido</h3>
+          <p>Analiza tu dispositivo en minutos sin ralentizarlo.</p>
+        </div>
+        <div class="feature-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/3064/3064155.png" alt="Protección web">
+          <h3>🌐 Protección Web</h3>
+          <p>Bloquea sitios peligrosos y enlaces maliciosos.</p>
+        </div>
+        <div class="feature-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/3064/3064173.png" alt="Privacidad">
+          <h3>👁️ Protección de Privacidad</h3>
+          <p>Identifica y bloquea apps que acceden a datos sensibles.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="descargar" class="card">
+      <h2>Descarga Gratuita</h2>
+      <p>Disponible exclusivamente para la comunidad UAM</p>
+      <div style="display: flex; align-items: center; gap: 2rem; margin: 1.5rem 0;">
+        <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Android" style="width: 80px;">
+        <div>
+          <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn" target="_blank" rel="noopener noreferrer">📲 Descargar para Android</a>
+          <p><small>Disponible en Google Play Store</small></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Testimonios Reales</h2>
+      <div class="testimonials" id="testimonials-container">
+        <div class="testimonial">
+          <img src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="Usuario">
+          <div class="testimonial-content">
+            <p>"Este antivirus detectó una app que estaba robando mis contraseñas. ¡Salvó mis cuentas!"</p>
+            <strong>- Ana, Estudiante</strong>
+          </div>
+        </div>
+        <div class="testimonial">
+          <img src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="Usuario">
+          <div class="testimonial-content">
+            <p>"La función de bloqueo de links maliciosos es increíble. Ya no temo hacer clic en enlaces."</p>
+            <strong>- Carlos, Profesor</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-form">
+        <h3>¡Comparte tu experiencia!</h3>
+        <div id="testimonialAlert" class="alert" style="display: none;"></div>
+        <form id="testimonialForm">
+          <div class="form-group">
+            <label for="testimonial-name">Nombre</label>
+            <input type="text" id="testimonial-name" required minlength="3">
+          </div>
+          <div class="form-group">
+            <label for="testimonial-role">Rol</label>
+            <select id="testimonial-role" required>
+              <option value="">Selecciona tu rol</option>
+              <option value="Estudiante">Estudiante</option>
+              <option value="Profesor">Profesor</option>
+              <option value="Administrativo">Personal Administrativo</option>
+              <option value="Egresado">Egresado</option>
+              <option value="Investigador">Investigador</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="testimonial-text">Tu testimonio</label>
+            <textarea id="testimonial-text" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-secondary">Enviar Testimonio</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="contacto" class="card">
+      <h2>Contáctanos</h2>
+      <p>¿Tienes preguntas o sugerencias? Escríbenos:</p>
+      
+      <div id="alertSuccess" class="alert alert-success"></div>
+      <div id="alertError" class="alert alert-error"></div>
+      
+      <form 
+        action="https://formsubmit.co/uampanas@gmail.com" 
+        method="POST"
+        id="contactForm"
+      >
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="Nuevo mensaje desde UAMpanas">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="#contacto">
+        <input type="text" name="_honey" style="display:none">
+        
+        <div class="form-group">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" required minlength="3">
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="mensaje">Tu mensaje</label>
+          <textarea id="mensaje" name="mensaje" rows="5" required minlength="10"></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-secondary">Enviar Mensaje</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-logos">
+        <img src="https://lh5.googleusercontent.com/proxy/_2kgdsApltGVl7jrwcThtNtNTpLgw0dlzEjZ2e5IpAynQ9W_xcMY9Ka_MvcAEy-gN80Yn33dTIn7TcUN" alt="Logo UAM" class="footer-logo">
+        <img src="https://cdn-icons-png.freepik.com/256/16389/16389657.png?semt=ais_hybrid" alt="Logo UAMpanas" class="footer-logo">
+      </div>
+      <p>© 2023 Antivirus UAMpanas. Proyecto desarrollado por la comunidad universitaria.</p>
+      <p><small>Todos los derechos reservados | <a href="#" style="color: white;">Política de privacidad</a></small></p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      const nombre = document.getElementById('nombre').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const mensaje = document.getElementById('mensaje').value.trim();
+      
+      if(nombre.length < 3) {
+        showAlert('Por favor ingresa tu nombre completo', 'error');
+        e.preventDefault();
+        return;
+      }
+      
+      if(!validateEmail(email)) {
+        showAlert('Ingresa un correo electrónico válido', 'error');
+        e.preventDefault();
+        return;
+      }
+      
+      if(mensaje.length < 10) {
+        showAlert('El mensaje debe tener al menos 10 caracteres', 'error');
+        e.preventDefault();
+        return;
+      }
+      
+      showAlert('Enviando tu mensaje...', 'success');
+    });
+
+    document.getElementById('testimonialForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('testimonial-name').value.trim();
+      const role = document.getElementById('testimonial-role').value;
+      const text = document.getElementById('testimonial-text').value.trim();
+      
+      if(name.length < 3) {
+        showTestimonialAlert('Por favor ingresa tu nombre', 'error');
+        return;
+      }
+      
+      if(!role) {
+        showTestimonialAlert('Por favor selecciona tu rol', 'error');
+        return;
+      }
+      
+      if(!text) {
+        showTestimonialAlert('Por favor escribe tu testimonio', 'error');
+        return;
+      }
+      
+      const testimonialContainer = document.getElementById('testimonials-container');
+      const newTestimonial = document.createElement('div');
+      newTestimonial.className = 'testimonial';
+      
+      newTestimonial.innerHTML = `
+        <img src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="${name}">
+        <div class="testimonial-content">
+          <p>"${text}"</p>
+          <strong>- ${name}, ${role}</strong>
+        </div>
+      `;
+      
+      testimonialContainer.prepend(newTestimonial);
+      
+      document.getElementById('testimonialForm').reset();
+      showTestimonialAlert('¡Gracias por tu testimonio!', 'success');
+    });
+
+    function showTestimonialAlert(message, type) {
+      const alert = document.getElementById('testimonialAlert');
+      alert.textContent = message;
+      alert.className = `alert alert-${type}`;
+      alert.style.display = 'block';
+      
+      setTimeout(() => {
+        alert.style.display = 'none';
+      }, 5000);
+    }
+
+    function showAlert(message, type) {
+      const alertSuccess = document.getElementById('alertSuccess');
+      const alertError = document.getElementById('alertError');
+      
+      if(type === 'success') {
+        alertSuccess.textContent = message;
+        alertSuccess.style.display = 'block';
+        alertError.style.display = 'none';
+      } else {
+        alertError.textContent = message;
+        alertError.style.display = 'block';
+        alertSuccess.style.display = 'none';
+      }
+    }
+    
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+    
+    window.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if(urlParams.has('success')) {
+        showAlert('¡Mensaje enviado correctamente!', 'success');
+      }
+      if(urlParams.has('error')) {
+        showAlert('Error al enviar el mensaje. Intenta nuevamente.', 'error');
+      }
+    });
+  </script>
+</body>
+</html>
