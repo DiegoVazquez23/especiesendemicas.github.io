@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Antivirus UAMpanas - Protección avanzada para dispositivos móviles de la comunidad universitaria">
-  <meta name="keywords" content="antivirus, seguridad, UAM, móvil, protección">
+  <meta name="description" content="Antivirus UAMpanas - Protección avanzada para dispositivos móviles y PC de la comunidad universitaria">
+  <meta name="keywords" content="antivirus, seguridad, UAM, móvil, protección, PC, descargar">
   <title>Antivirus UAMpanas | Protección Avanzada</title>
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/16389/16389657.png" type="image/png">
   <style>
@@ -491,6 +491,94 @@
       }
     }
     
+    /* Sección de descargas mejorada */
+    .download-platforms {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    
+    .platform-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .platform-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .platform-icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1.5rem;
+      object-fit: contain;
+    }
+    
+    .platform-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .platform-description {
+      margin-bottom: 1.5rem;
+      color: var(--gray);
+    }
+    
+    .platform-requirements {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-top: auto;
+      width: 100%;
+    }
+    
+    .requirements-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .requirements-list {
+      list-style-type: none;
+      text-align: left;
+      padding-left: 1rem;
+    }
+    
+    .requirements-list li {
+      margin-bottom: 0.25rem;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    
+    .requirements-list li::before {
+      content: "•";
+      color: var(--accent);
+      position: absolute;
+      left: 0;
+    }
+    
+    /* Badges de plataforma */
+    .platform-badge {
+      display: inline-block;
+      background: var(--secondary);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
     /* Mejoras responsive */
     @media (max-width: 1024px) {
       .header-content {
@@ -520,6 +608,10 @@
       }
       
       .features {
+        grid-template-columns: 1fr;
+      }
+      
+      .download-platforms {
         grid-template-columns: 1fr;
       }
       
@@ -605,6 +697,34 @@
       visibility: visible;
       opacity: 1;
     }
+
+    /* Estilos para FAQ */
+    .faq-item {
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--accent);
+    }
+
+    .faq-item h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .faq-item p {
+      color: var(--gray);
+    }
+
+    /* Estilos para términos y política */
+    ol, ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -624,11 +744,11 @@
         </div>
         <div class="header-text">
           <h1>🛡️ Antivirus UAMpanas</h1>
-          <p class="lead">Protección avanzada para tu dispositivo móvil desarrollada por y para la comunidad universitaria</p>
+          <p class="lead">Protección avanzada para tus dispositivos desarrollada por y para la comunidad universitaria</p>
           <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-            <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn pulse tooltip" target="_blank" rel="noopener noreferrer">
+            <a href="#descargar" class="btn pulse tooltip">
               Descargar Ahora
-              <span class="tooltiptext">Disponible en Google Play</span>
+              <span class="tooltiptext">Disponible para Android y PC</span>
             </a>
             <a href="#caracteristicas" class="btn btn-secondary tooltip">
               Ver Características
@@ -643,7 +763,7 @@
   <main class="container">
     <section id="caracteristicas" class="card">
       <h2>Características Principales</h2>
-      <p class="subtitle">Nuestro antivirus ofrece una protección completa con las últimas tecnologías en seguridad móvil</p>
+      <p class="subtitle">Nuestro antivirus ofrece una protección completa con las últimas tecnologías en seguridad</p>
       <div class="features">
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/2452/2452056.png" alt="Protección en tiempo real">
@@ -657,8 +777,8 @@
         </div>
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" alt="Optimización móvil">
-          <h3>📱 Optimizado para Móviles</h3>
-          <p>Bajo consumo de batería y recursos del sistema sin comprometer la seguridad.</p>
+          <h3>⚙️ Optimizado para Dispositivos</h3>
+          <p>Bajo consumo de recursos sin comprometer la seguridad, tanto en móviles como en PC.</p>
         </div>
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/64/64673.png" alt="Escaneo rápido">
@@ -680,32 +800,80 @@
 
     <section id="descargar" class="card">
       <h2>Descarga Gratuita</h2>
-      <p class="subtitle">Disponible exclusivamente para la comunidad UAM. Protege tu dispositivo hoy mismo.</p>
-      <div style="display: flex; align-items: center; gap: 2rem; margin: 2rem 0; flex-wrap: wrap;">
-        <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Android" style="width: 100px;" class="floating">
-        <div>
-          <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn pulse" target="_blank" rel="noopener noreferrer" id="downloadBtn" style="font-size: 1.1rem;">
-            📲 Descargar para Android
+      <p class="subtitle">Disponible para Android y PC. Protege tus dispositivos hoy mismo.</p>
+      
+      <div class="download-platforms">
+        <div class="platform-card">
+          <span class="platform-badge">Versión Android</span>
+          <img src="https://cdn-icons-png.flaticon.com/512/226/226770.png" alt="Android" class="platform-icon">
+          <h3 class="platform-title">Para Dispositivos Android</h3>
+          <p class="platform-description">Protección avanzada diseñada específicamente para dispositivos móviles con Android.</p>
+          <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn" target="_blank" rel="noopener noreferrer">
+            Descargar para Android
           </a>
-          <p style="margin-top: 0.5rem;"><small>Versión 2.1.0 | Requiere Android 8.0+</small></p>
+          <div class="platform-requirements">
+            <p class="requirements-title">Requisitos del sistema:</p>
+            <ul class="requirements-list">
+              <li>Android 8.0 o superior</li>
+              <li>1 GB de RAM mínimo</li>
+              <li>50 MB de espacio disponible</li>
+              <li>Conexión a Internet para actualizaciones</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="platform-card">
+          <span class="platform-badge">Versión Windows</span>
+          <img src="https://images.icon-icons.com/2235/PNG/512/windows_os_logo_icon_134674.png" alt="Windows" class="platform-icon">
+          <h3 class="platform-title">Para Computadoras con Windows</h3>
+          <p class="platform-description">Protección completa para tu PC con interfaz optimizada para escritorio.</p>
+          <a href="#" class="btn" id="downloadPcBtn">
+            Descargar para PC
+          </a>
+          <div class="platform-requirements">
+            <p class="requirements-title">Requisitos del sistema:</p>
+            <ul class="requirements-list">
+              <li>Windows 10 o superior (64-bit)</li>
+              <li>2 GB de RAM mínimo</li>
+              <li>100 MB de espacio disponible</li>
+              <li>Conexión a Internet para actualizaciones</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div style="margin-top: 2rem; background: #f8fafc; padding: 1.5rem; border-radius: 12px;">
-        <h3 style="margin-bottom: 1rem;">¿Por qué elegir nuestro antivirus?</h3>
-        <ul style="list-style-type: none;">
-          <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-            <span style="color: var(--accent);">✓</span> Desarrollado por expertos en seguridad de la UAM
-          </li>
-          <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-            <span style="color: var(--accent);">✓</span> Sin costos ocultos ni suscripciones
-          </li>
-          <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-            <span style="color: var(--accent);">✓</span> Actualizaciones periódicas de seguridad
-          </li>
-          <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
-            <span style="color: var(--accent);">✓</span> Soporte técnico especializado
-          </li>
-        </ul>
+      
+      <div style="margin-top: 3rem; background: #f8fafc; padding: 2rem; border-radius: 12px;">
+        <h3 style="margin-bottom: 1.5rem; text-align: center;">¿Por qué elegir nuestro antivirus?</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+          <div style="display: flex; align-items: flex-start; gap: 1rem;">
+            <div style="background: var(--accent); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</div>
+            <div>
+              <h4 style="margin-bottom: 0.5rem;">Desarrollo Universitario</h4>
+              <p style="color: var(--gray);">Creado por expertos en seguridad de la UAM para la comunidad universitaria.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 1rem;">
+            <div style="background: var(--accent); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</div>
+            <div>
+              <h4 style="margin-bottom: 0.5rem;">Sin Costos Ocultos</h4>
+              <p style="color: var(--gray);">Acceso completo sin suscripciones ni pagos adicionales.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 1rem;">
+            <div style="background: var(--accent); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</div>
+            <div>
+              <h4 style="margin-bottom: 0.5rem;">Actualizaciones Constantes</h4>
+              <p style="color: var(--gray);">Base de datos de virus actualizada regularmente.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 1rem;">
+            <div style="background: var(--accent); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</div>
+            <div>
+              <h4 style="margin-bottom: 0.5rem;">Soporte Especializado</h4>
+              <p style="color: var(--gray);">Equipo técnico disponible para resolver tus dudas.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -756,6 +924,9 @@
         </button>
       </form>
     </section>
+
+    <!-- Secciones dinámicas que se cargan cuando se hace clic en los enlaces del footer -->
+    <div id="dynamic-content"></div>
   </main>
 
   <footer>
@@ -769,17 +940,17 @@
         <a href="#caracteristicas">Características</a>
         <a href="#descargar">Descargar</a>
         <a href="#contacto">Contacto</a>
-        <a href="#">Preguntas Frecuentes</a>
-        <a href="#">Términos de Servicio</a>
-        <a href="#">Política de Privacidad</a>
+        <a href="#" id="faq-link">Preguntas Frecuentes</a>
+        <a href="#" id="terms-link">Términos de Servicio</a>
+        <a href="#" id="privacy-link">Política de Privacidad</a>
       </div>
       
       <p style="margin-bottom: 1.5rem;">© 2025 Antivirus UAMpanas. Proyecto desarrollado por la comunidad universitaria.</p>
       
       <div style="display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem;">
-        <a href="#" style="color: white; font-size: 1.5rem;">📱</a>
-        <a href="#" style="color: white; font-size: 1.5rem;">📧</a>
-        <a href="#" style="color: white; font-size: 1.5rem;">💬</a>
+        <a href="https://wa.me/525512345678" style="color: white; font-size: 1.5rem;">📱</a>
+        <a href="mailto:soporte@uampanas.cua.uam.mx" style="color: white; font-size: 1.5rem;">📧</a>
+        <a href="https://t.me/UAMpanasSupport" style="color: white; font-size: 1.5rem;">💬</a>
       </div>
     </div>
   </footer>
@@ -850,6 +1021,7 @@
     function animateOnScroll() {
       const cards = document.querySelectorAll('.card');
       const features = document.querySelectorAll('.feature-item');
+      const platforms = document.querySelectorAll('.platform-card');
       
       cards.forEach((card, index) => {
         const cardPosition = card.getBoundingClientRect().top;
@@ -870,6 +1042,18 @@
           setTimeout(() => {
             feature.classList.add('animated');
           }, index * 100);
+        }
+      });
+      
+      platforms.forEach((platform, index) => {
+        const platformPosition = platform.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+        
+        if (platformPosition < screenPosition) {
+          setTimeout(() => {
+            platform.style.opacity = '1';
+            platform.style.transform = 'translateY(0)';
+          }, index * 150);
         }
       });
     }
@@ -893,6 +1077,47 @@
       });
     }
     
+    // Mostrar contenido dinámico
+    function showDynamicContent(content) {
+      const main = document.querySelector('main.container');
+      const dynamicContent = document.getElementById('dynamic-content');
+      
+      // Ocultar todas las secciones principales
+      document.querySelectorAll('main.container > section').forEach(section => {
+        section.style.display = 'none';
+      });
+      
+      // Mostrar el contenido dinámico
+      dynamicContent.innerHTML = content;
+      dynamicContent.style.display = 'block';
+      
+      // Crear botón de volver
+      const backButton = document.createElement('button');
+      backButton.textContent = 'Volver al Inicio';
+      backButton.className = 'btn btn-secondary';
+      backButton.style.marginTop = '2rem';
+      backButton.style.marginBottom = '2rem';
+      backButton.style.display = 'block';
+      backButton.style.marginLeft = 'auto';
+      backButton.style.marginRight = 'auto';
+      
+      backButton.addEventListener('click', function() {
+        // Mostrar todas las secciones principales
+        document.querySelectorAll('main.container > section').forEach(section => {
+          section.style.display = 'block';
+        });
+        
+        // Ocultar contenido dinámico
+        dynamicContent.style.display = 'none';
+        dynamicContent.innerHTML = '';
+        
+        // Scroll al inicio
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      });
+      
+      dynamicContent.appendChild(backButton);
+    }
+    
     // Inicialización
     document.addEventListener('DOMContentLoaded', function() {
       createParticles();
@@ -907,15 +1132,12 @@
         });
       });
       
-      // Botón de descarga
-      const downloadBtn = document.getElementById('downloadBtn');
-      if (downloadBtn) {
-        downloadBtn.addEventListener('mouseover', function() {
-          this.classList.add('pulse');
-        });
-        
-        downloadBtn.addEventListener('mouseout', function() {
-          this.classList.remove('pulse');
+      // Botón de descarga PC
+      const downloadPcBtn = document.getElementById('downloadPcBtn');
+      if (downloadPcBtn) {
+        downloadPcBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          showAlert('La versión para PC estará disponible próximamente. ¡Gracias por tu interés!', 'success');
         });
       }
       
@@ -930,6 +1152,104 @@
           spinner.style.display = 'inline-block';
         });
       }
+      
+      // Manejadores para enlaces del footer
+      document.getElementById('faq-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        showDynamicContent(`
+          <section class="card">
+            <h2>Preguntas Frecuentes</h2>
+            <div class="faq-item">
+              <h3>¿Cómo instalo el antivirus?</h3>
+              <p>Descarga la aplicación desde la sección correspondiente a tu dispositivo y sigue las instrucciones del instalador.</p>
+            </div>
+            <div class="faq-item">
+              <h3>¿Es realmente gratuito?</h3>
+              <p>Sí, nuestro antivirus es completamente gratuito para todos los miembros de la comunidad UAM.</p>
+            </div>
+            <div class="faq-item">
+              <h3>¿Qué hago si detecta un falso positivo?</h3>
+              <p>Puedes reportarlo a través de nuestro formulario de contacto y lo revisaremos lo antes posible.</p>
+            </div>
+            <div class="faq-item">
+              <h3>¿Cómo actualizo el antivirus?</h3>
+              <p>Las actualizaciones se descargan automáticamente cuando estás conectado a internet.</p>
+            </div>
+            <div class="faq-item">
+              <h3>¿Dónde puedo obtener ayuda técnica?</h3>
+              <p>Puedes contactar a nuestro equipo de soporte a través de la sección de contacto o usando los enlaces en el pie de página.</p>
+            </div>
+          </section>
+        `);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      });
+      
+      document.getElementById('terms-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        showDynamicContent(`
+          <section class="card">
+            <h2>Términos de Servicio</h2>
+            <p><strong>Última actualización:</strong> 1 de enero de 2025</p>
+            
+            <div class="faq-item">
+              <h3>1. Aceptación de los Términos</h3>
+              <p>Al utilizar el Antivirus UAMpanas, usted acepta cumplir con estos términos de servicio.</p>
+            </div>
+            
+            <div class="faq-item">
+              <h3>2. Uso del Software</h3>
+              <p>El software está destinado exclusivamente para miembros de la comunidad UAM. No está permitida su redistribución.</p>
+            </div>
+            
+            <div class="faq-item">
+              <h3>3. Limitación de Responsabilidad</h3>
+              <p>El software se proporciona "tal cual" sin garantías de ningún tipo. No nos hacemos responsables por daños derivados de su uso.</p>
+            </div>
+            
+            <div class="faq-item">
+              <h3>4. Modificaciones</h3>
+              <p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación.</p>
+            </div>
+          </section>
+        `);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      });
+      
+      document.getElementById('privacy-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        showDynamicContent(`
+          <section class="card">
+            <h2>Política de Privacidad</h2>
+            <p><strong>Última actualización:</strong> 1 de enero de 2025</p>
+            
+            <div class="faq-item">
+              <h3>1. Información que Recopilamos</h3>
+              <p>Recopilamos información mínima necesaria para el funcionamiento del antivirus, incluyendo datos de detecciones y actualizaciones.</p>
+            </div>
+            
+            <div class="faq-item">
+              <h3>2. Uso de la Información</h3>
+              <p>La información se utiliza exclusivamente para mejorar el servicio y proporcionar protección contra amenazas.</p>
+            </div>
+            
+            <div class="faq-item">
+              <h3>3. Protección de Datos</h3>
+              <p>Implementamos medidas de seguridad para proteger sus datos contra accesos no autorizados.</p>
+            </div>
+            
+            <div class="faq-item">
+              <h3>4. Tus Derechos</h3>
+              <p>Tienes derecho a acceder, corregir o solicitar la eliminación de tus datos personales en cualquier momento.</p>
+            </div>
+            
+            <div class="faq-item">
+              <h3>5. Contacto</h3>
+              <p>Para preguntas sobre esta política, contáctanos a través del formulario disponible en el sitio.</p>
+            </div>
+          </section>
+        `);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      });
     });
     
     window.addEventListener('scroll', function() {
@@ -955,6 +1275,9 @@
 
       if(!validateEmail(email)) {
         showAlert('Ingresa un correo electrónico válido', 'error');
+        isValid = false;
+      } else if (!email.endsWith('@cua.uam.mx')) {
+        showAlert('Solo se permiten correos con dominio @cua.uam.mx', 'error');
         isValid = false;
       }
 
