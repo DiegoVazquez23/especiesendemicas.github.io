@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Antivirus UAMpanas</title>
+  <meta name="description" content="Antivirus UAMpanas - Protección avanzada para dispositivos móviles de la comunidad universitaria">
+  <meta name="keywords" content="antivirus, seguridad, UAM, móvil, protección">
+  <title>Antivirus UAMpanas | Protección Avanzada</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/16389/16389657.png" type="image/png">
   <style>
     :root {
       --primary: #1f2937;
@@ -11,30 +14,60 @@
       --accent: #22c55e;
       --text: #333333;
       --light: #f8f9fa;
+      --dark: #111827;
+      --gray: #6b7280;
     }
     
-    /* Barra de progreso */
+    /* Barra de progreso mejorada */
     .progress-container {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 6px;
+      height: 4px;
       background: rgba(59, 130, 246, 0.1);
       z-index: 1000;
-      transition: height 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .progress-container.scrolled {
-      height: 10px;
+      height: 6px;
+      backdrop-filter: blur(4px);
     }
     
     .progress-bar {
       height: 100%;
       background: linear-gradient(90deg, var(--secondary), var(--accent));
       width: 0%;
-      transition: width 0.1s ease-out;
-      box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
+      transition: width 0.2s ease-out;
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.5), 
+                transparent);
+      animation: shimmer 2s infinite;
+    }
+    
+    /* Mejoras globales */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      scroll-behavior: smooth;
     }
     
     body {
@@ -45,145 +78,215 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      padding-top: 6px; /* Para que el contenido no quede debajo de la barra */
     }
     
+    /* Header mejorado */
     header {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--dark));
       color: white;
-      padding: 3rem 1rem;
+      padding: 4rem 1rem;
       text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
+    
     .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
+      gap: 2rem;
       position: relative;
       z-index: 2;
     }
+    
+    .header-text {
+      max-width: 800px;
+    }
+    
     .header-logos {
       display: flex;
       align-items: center;
       gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
     }
+    
     header img {
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-      transition: all 0.5s ease;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    
     .uam-logo {
-      width: 180px;
+      width: 200px;
       height: auto;
     }
+    
     .app-logo {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 12px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+    
+    p {
+      margin-bottom: 1.25rem;
+      color: var(--gray);
+    }
+    
+    /* Contenedor principal mejorado */
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 1rem;
+      padding: 0 1.5rem;
     }
+    
+    /* Cards mejoradas */
     .card {
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-      padding: 2rem;
-      margin: 2rem 0;
-      transition: all 0.3s ease;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      padding: 2.5rem;
+      margin: 3rem 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
+      border: 1px solid rgba(0, 0, 0, 0.05);
     }
+    
     .card.animated {
       opacity: 1;
       transform: translateY(0);
     }
+    
     .card:hover {
-      transform: translateY(-5px) scale(1.01);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
+    
+    /* Botones mejorados */
     .btn {
-      display: inline-block;
-      padding: 0.8rem 1.8rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
       background: var(--accent);
       color: white;
-      border-radius: 50px;
+      border-radius: 12px;
       text-decoration: none;
       font-weight: 600;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       border: none;
       cursor: pointer;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+    
     .btn:hover {
       background: #16a34a;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px rgba(34, 197, 94, 0.3);
     }
-    .btn:after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 5px;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.5);
-      opacity: 0;
-      border-radius: 100%;
-      transform: scale(1, 1) translate(-50%);
-      transform-origin: 50% 50%;
+    
+    .btn:active {
+      transform: translateY(1px);
     }
-    .btn:focus:not(:active)::after {
-      animation: ripple 0.6s ease-out;
-    }
+    
     .btn-secondary {
       background: var(--secondary);
     }
+    
     .btn-secondary:hover {
       background: #2563eb;
+      box-shadow: 0 10px 15px rgba(59, 130, 246, 0.3);
     }
+    
+    /* Formulario mejorado */
     form {
-      margin-top: 1.5rem;
+      margin-top: 2rem;
     }
+    
     .form-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
     }
+    
     label {
       display: block;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       font-weight: 600;
+      color: var(--primary);
     }
+    
     input, textarea, select {
       width: 100%;
-      padding: 0.8rem;
-      border: 1px solid #ddd;
-      border-radius: 6px;
+      padding: 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
       font-family: inherit;
       font-size: 1rem;
       transition: all 0.3s ease;
+      background: #f9fafb;
     }
+    
     input:focus, textarea:focus, select:focus {
       outline: none;
       border-color: var(--secondary);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-      transform: scale(1.01);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      background: white;
     }
+    
+    /* Features mejorados */
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
+      gap: 2rem;
+      margin: 3rem 0;
     }
+    
     .feature-item {
-      background: rgba(59, 130, 246, 0.1);
-      padding: 1.5rem;
-      border-radius: 8px;
-      border-left: 4px solid var(--secondary);
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -191,123 +294,130 @@
       transition: all 0.3s ease;
       opacity: 0;
       transform: translateY(20px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
     }
+    
     .feature-item.animated {
       opacity: 1;
       transform: translateY(0);
     }
+    
     .feature-item:hover {
-      transform: translateY(-5px);
-      background: rgba(59, 130, 246, 0.15);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
+    
     .feature-item img {
       width: 80px;
       height: 80px;
-      margin-bottom: 1rem;
-      transition: transform 0.5s ease;
+      margin-bottom: 1.5rem;
+      transition: all 0.5s ease;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
     }
+    
     .feature-item:hover img {
-      transform: rotate(10deg) scale(1.1);
+      transform: rotate(5deg) scale(1.1);
     }
+    
+    /* Alertas mejoradas */
     .alert {
-      padding: 1rem;
-      border-radius: 6px;
-      margin: 1rem 0;
+      padding: 1.25rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
       display: none;
       animation: fadeIn 0.5s ease-out;
+      border-left: 4px solid transparent;
     }
+    
     .alert-success {
-      background: #dcfce7;
+      background: #f0fdf4;
       color: #166534;
-      border-left: 4px solid #22c55e;
+      border-left-color: #22c55e;
     }
+    
     .alert-error {
-      background: #fee2e2;
+      background: #fef2f2;
       color: #991b1b;
-      border-left: 4px solid #ef4444;
+      border-left-color: #ef4444;
     }
+    
+    /* Footer mejorado */
     footer {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--dark));
       color: white;
       text-align: center;
-      padding: 2rem;
-      margin-top: 3rem;
+      padding: 4rem 2rem;
+      margin-top: 4rem;
       position: relative;
     }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
     .footer-logos {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 3rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
     }
+    
     .footer-logo {
       height: 100px;
       width: auto;
       transition: all 0.5s ease;
+      filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     }
+    
     .footer-logo:hover {
       transform: rotate(5deg) scale(1.1);
     }
-    @media (max-width: 768px) {
-      header {
-        padding: 2rem 1rem;
-      }
-      .header-content {
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-      .header-logos {
-        gap: 1.5rem;
-      }
-      .uam-logo {
-        width: 150px;
-      }
-      .app-logo {
-        width: 90px;
-        height: 90px;
-      }
-      .features {
-        grid-template-columns: 1fr;
-      }
-      .footer-logos {
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-      .footer-logo {
-        height: 90px;
-      }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
     }
     
-    /* Animaciones */
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+    
+    /* Animaciones mejoradas */
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    @keyframes ripple {
-      0% {
-        transform: scale(0, 0);
-        opacity: 0.5;
-      }
-      100% {
-        transform: scale(20, 20);
-        opacity: 0;
-      }
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     
     @keyframes float {
       0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-12px); }
       100% { transform: translateY(0px); }
     }
     
-    .floating {
-      animation: float 3s ease-in-out infinite;
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
     }
     
-    /* Partículas animadas en el header */
+    .floating {
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    /* Efecto de partículas mejorado */
     .particles {
       position: absolute;
       top: 0;
@@ -320,9 +430,10 @@
     
     .particle {
       position: absolute;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 50%;
       animation: float-particle linear infinite;
+      filter: blur(1px);
     }
     
     @keyframes float-particle {
@@ -342,51 +453,167 @@
       }
     }
     
-    /* Efecto de onda en el botón */
+    /* Efecto de onda mejorado */
     .wave {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      transform: scale(0);
+      top: 50%;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.3);
       opacity: 1;
-      animation: wave-animation 1s ease-out;
+      border-radius: 100%;
+      transform: translate(-50%, -50%) scale(0);
+      animation: wave-animation 0.8s ease-out;
     }
     
     @keyframes wave-animation {
       to {
-        transform: scale(2);
+        transform: translate(-50%, -50%) scale(20);
         opacity: 0;
       }
     }
     
-    /* Efecto de parpadeo para elementos importantes */
+    /* Efecto de pulso mejorado */
     .pulse {
       animation: pulse 2s infinite;
     }
     
     @keyframes pulse {
       0% {
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
       }
       70% {
-        box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+        box-shadow: 0 0 0 15px rgba(34, 197, 94, 0);
       }
       100% {
         box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
       }
     }
+    
+    /* Mejoras responsive */
+    @media (max-width: 1024px) {
+      .header-content {
+        flex-direction: column;
+      }
+      
+      .header-logos {
+        margin-bottom: 2rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.75rem;
+      }
+      
+      .card {
+        padding: 2rem 1.5rem;
+      }
+      
+      .btn {
+        padding: 0.875rem 1.5rem;
+      }
+      
+      .features {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-logos {
+        gap: 2rem;
+      }
+      
+      .footer-links {
+        gap: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      header {
+        padding: 3rem 1rem;
+      }
+      
+      h1 {
+        font-size: 1.75rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      .card {
+        padding: 1.75rem 1.25rem;
+        margin: 2rem 0;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+      
+      .footer-logos {
+        flex-direction: column;
+      }
+    }
+    
+    /* Scroll personalizado */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--secondary);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2563eb;
+    }
+    
+    /* Tooltip para botones */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: var(--dark);
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.875rem;
+    }
+    
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
-  <!-- Barra de progreso -->
+  <!-- Barra de progreso mejorada -->
   <div class="progress-container" id="progressContainer">
     <div class="progress-bar" id="progressBar"></div>
   </div>
 
+  <!-- Header mejorado -->
   <header>
     <div class="particles" id="particles"></div>
     <div class="container">
@@ -395,10 +622,19 @@
           <img src="https://lh5.googleusercontent.com/proxy/_2kgdsApltGVl7jrwcThtNtNTpLgw0dlzEjZ2e5IpAynQ9W_xcMY9Ka_MvcAEy-gN80Yn33dTIn7TcUN" alt="Logo UAM" class="uam-logo floating">
           <img src="https://cdn-icons-png.freepik.com/256/16389/16389657.png?semt=ais_hybrid" alt="Logo UAMpanas" class="app-logo floating" style="animation-delay: 0.5s;">
         </div>
-        <div>
+        <div class="header-text">
           <h1>🛡️ Antivirus UAMpanas</h1>
-          <p>Protección avanzada para tu dispositivo móvil</p>
-          <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn pulse" target="_blank" rel="noopener noreferrer">Descargar Ahora</a>
+          <p class="lead">Protección avanzada para tu dispositivo móvil desarrollada por y para la comunidad universitaria</p>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn pulse tooltip" target="_blank" rel="noopener noreferrer">
+              Descargar Ahora
+              <span class="tooltiptext">Disponible en Google Play</span>
+            </a>
+            <a href="#caracteristicas" class="btn btn-secondary tooltip">
+              Ver Características
+              <span class="tooltiptext">Descubre todas las funciones</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -407,55 +643,75 @@
   <main class="container">
     <section id="caracteristicas" class="card">
       <h2>Características Principales</h2>
+      <p class="subtitle">Nuestro antivirus ofrece una protección completa con las últimas tecnologías en seguridad móvil</p>
       <div class="features">
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/2452/2452056.png" alt="Protección en tiempo real">
           <h3>🔒 Protección en Tiempo Real</h3>
-          <p>Escaneo continuo contra malware, spyware y ransomware.</p>
+          <p>Escaneo continuo contra malware, spyware y ransomware con detección avanzada de amenazas.</p>
         </div>
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/2452/2452039.png" alt="Cortafuegos">
           <h3>🛡️ Cortafuegos Integrado</h3>
-          <p>Bloquea conexiones sospechosas y protege tu privacidad.</p>
+          <p>Bloquea conexiones sospechosas y protege tu privacidad con filtrado inteligente de red.</p>
         </div>
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" alt="Optimización móvil">
           <h3>📱 Optimizado para Móviles</h3>
-          <p>Bajo consumo de batería y recursos del sistema.</p>
+          <p>Bajo consumo de batería y recursos del sistema sin comprometer la seguridad.</p>
         </div>
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/64/64673.png" alt="Escaneo rápido">
           <h3>⚡ Escaneo Ultra Rápido</h3>
-          <p>Analiza tu dispositivo en minutos sin ralentizarlo.</p>
+          <p>Analiza tu dispositivo en minutos con nuestra tecnología de escaneo inteligente.</p>
         </div>
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/3064/3064155.png" alt="Protección web">
           <h3>🌐 Protección Web</h3>
-          <p>Bloquea sitios peligrosos y enlaces maliciosos.</p>
+          <p>Bloquea sitios peligrosos, phishing y enlaces maliciosos en tiempo real.</p>
         </div>
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/3064/3064173.png" alt="Privacidad">
           <h3>👁️ Protección de Privacidad</h3>
-          <p>Identifica y bloquea apps que acceden a datos sensibles.</p>
+          <p>Identifica y bloquea apps que acceden a datos sensibles sin tu permiso.</p>
         </div>
       </div>
     </section>
 
     <section id="descargar" class="card">
       <h2>Descarga Gratuita</h2>
-      <p>Disponible exclusivamente para la comunidad UAM</p>
-      <div style="display: flex; align-items: center; gap: 2rem; margin: 1.5rem 0;">
-        <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Android" style="width: 80px;" class="floating">
+      <p class="subtitle">Disponible exclusivamente para la comunidad UAM. Protege tu dispositivo hoy mismo.</p>
+      <div style="display: flex; align-items: center; gap: 2rem; margin: 2rem 0; flex-wrap: wrap;">
+        <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Android" style="width: 100px;" class="floating">
         <div>
-          <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn" target="_blank" rel="noopener noreferrer" id="downloadBtn">📲 Descargar para Android</a>
-          <p><small>Disponible en Google Play Store</small></p>
+          <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn pulse" target="_blank" rel="noopener noreferrer" id="downloadBtn" style="font-size: 1.1rem;">
+            📲 Descargar para Android
+          </a>
+          <p style="margin-top: 0.5rem;"><small>Versión 2.1.0 | Requiere Android 8.0+</small></p>
         </div>
+      </div>
+      <div style="margin-top: 2rem; background: #f8fafc; padding: 1.5rem; border-radius: 12px;">
+        <h3 style="margin-bottom: 1rem;">¿Por qué elegir nuestro antivirus?</h3>
+        <ul style="list-style-type: none;">
+          <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+            <span style="color: var(--accent);">✓</span> Desarrollado por expertos en seguridad de la UAM
+          </li>
+          <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+            <span style="color: var(--accent);">✓</span> Sin costos ocultos ni suscripciones
+          </li>
+          <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+            <span style="color: var(--accent);">✓</span> Actualizaciones periódicas de seguridad
+          </li>
+          <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
+            <span style="color: var(--accent);">✓</span> Soporte técnico especializado
+          </li>
+        </ul>
       </div>
     </section>
 
     <section id="contacto" class="card">
       <h2>Contáctanos</h2>
-      <p>¿Tienes preguntas o sugerencias? Escríbenos:</p>
+      <p class="subtitle">¿Tienes preguntas, sugerencias o necesitas asistencia técnica? Estamos aquí para ayudarte.</p>
 
       <div id="alertSuccess" class="alert alert-success"></div>
       <div id="alertError" class="alert alert-error"></div>
@@ -469,37 +725,67 @@
 
         <div class="form-group">
           <label for="nombre">Nombre completo</label>
-          <input type="text" id="nombre" name="nombre" required minlength="3">
+          <input type="text" id="nombre" name="nombre" required minlength="3" placeholder="Ingresa tu nombre completo">
         </div>
 
         <div class="form-group">
           <label for="email">Correo electrónico</label>
-          <input type="email" id="email" name="email" required>
+          <input type="email" id="email" name="email" required placeholder="correo@cua.uam.mx">
+        </div>
+
+        <div class="form-group">
+          <label for="asunto">Asunto</label>
+          <select id="asunto" name="asunto" required>
+            <option value="" disabled selected>Selecciona un asunto</option>
+            <option value="Consulta general">Consulta general</option>
+            <option value="Soporte técnico">Soporte técnico</option>
+            <option value="Sugerencia">Sugerencia</option>
+            <option value="Reporte de error">Reporte de error</option>
+            <option value="Colaboración">Colaboración</option>
+          </select>
         </div>
 
         <div class="form-group">
           <label for="mensaje">Tu mensaje</label>
-          <textarea id="mensaje" name="mensaje" rows="5" required minlength="10"></textarea>
+          <textarea id="mensaje" name="mensaje" rows="6" required minlength="10" placeholder="Describe tu consulta o sugerencia en detalle..."></textarea>
         </div>
 
-        <button type="submit" class="btn btn-secondary" id="submitBtn">Enviar Mensaje</button>
+        <button type="submit" class="btn btn-secondary" id="submitBtn" style="width: 100%; padding: 1.25rem;">
+          <span id="submitText">Enviar Mensaje</span>
+          <span id="submitSpinner" style="display: none; margin-left: 0.5rem;">⌛</span>
+        </button>
       </form>
     </section>
   </main>
 
   <footer>
-    <div class="container">
+    <div class="footer-content">
       <div class="footer-logos">
         <img src="https://lh5.googleusercontent.com/proxy/_2kgdsApltGVl7jrwcThtNtNTpLgw0dlzEjZ2e5IpAynQ9W_xcMY9Ka_MvcAEy-gN80Yn33dTIn7TcUN" alt="Logo UAM" class="footer-logo">
         <img src="https://cdn-icons-png.freepik.com/256/16389/16389657.png?semt=ais_hybrid" alt="Logo UAMpanas" class="footer-logo">
       </div>
-      <p>© 2025 Antivirus UAMpanas. Proyecto desarrollado por la comunidad universitaria.</p>
-      <p><small>Todos los derechos reservados | <a href="#" style="color: white;">Política de privacidad</a></small></p>
+      
+      <div class="footer-links">
+        <a href="#caracteristicas">Características</a>
+        <a href="#descargar">Descargar</a>
+        <a href="#contacto">Contacto</a>
+        <a href="#">Preguntas Frecuentes</a>
+        <a href="#">Términos de Servicio</a>
+        <a href="#">Política de Privacidad</a>
+      </div>
+      
+      <p style="margin-bottom: 1.5rem;">© 2025 Antivirus UAMpanas. Proyecto desarrollado por la comunidad universitaria.</p>
+      
+      <div style="display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem;">
+        <a href="#" style="color: white; font-size: 1.5rem;">📱</a>
+        <a href="#" style="color: white; font-size: 1.5rem;">📧</a>
+        <a href="#" style="color: white; font-size: 1.5rem;">💬</a>
+      </div>
     </div>
   </footer>
 
   <script>
-    // Barra de progreso
+    // Barra de progreso mejorada
     function updateProgressBar() {
       const progressBar = document.getElementById('progressBar');
       const progressContainer = document.getElementById('progressContainer');
@@ -507,53 +793,45 @@
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       
-      // Calcular el porcentaje de scroll
       const scrollPercentage = (scrollPosition / (documentHeight - windowHeight)) * 100;
       progressBar.style.width = scrollPercentage + '%';
       
-      // Agrandar la barra cuando se hace scroll
-      if (scrollPosition > 10) {
+      if (scrollPosition > 50) {
         progressContainer.classList.add('scrolled');
       } else {
         progressContainer.classList.remove('scrolled');
       }
     }
     
-    // Animación de partículas en el header
+    // Animación de partículas mejorada
     function createParticles() {
       const particlesContainer = document.getElementById('particles');
-      const particleCount = 20;
+      const particleCount = Math.floor(window.innerWidth / 20);
       
       for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
         
-        // Tamaño aleatorio entre 2px y 6px
-        const size = Math.random() * 4 + 2;
+        const size = Math.random() * 5 + 2;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
         
-        // Posición inicial aleatoria
         particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100 + 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
         
-        // Duración de la animación aleatoria entre 10s y 20s
-        const duration = Math.random() * 10 + 10;
+        const duration = Math.random() * 15 + 10;
         particle.style.animationDuration = `${duration}s`;
-        
-        // Retraso aleatorio para que no todas empiecen juntas
         particle.style.animationDelay = `${Math.random() * 5}s`;
         
         particlesContainer.appendChild(particle);
       }
     }
     
-    // Efecto de onda en los botones
+    // Efecto de onda mejorado
     function createWaveEffect(button, e) {
       const wave = document.createElement('span');
       wave.classList.add('wave');
       
-      // Posicionar el efecto donde se hizo clic
       const rect = button.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -563,32 +841,32 @@
       
       button.appendChild(wave);
       
-      // Eliminar el elemento después de la animación
       setTimeout(() => {
         wave.remove();
-      }, 1000);
+      }, 800);
     }
     
-    // Animación de scroll para las cards
+    // Animación al hacer scroll mejorada
     function animateOnScroll() {
       const cards = document.querySelectorAll('.card');
       const features = document.querySelectorAll('.feature-item');
       
-      cards.forEach(card => {
+      cards.forEach((card, index) => {
         const cardPosition = card.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
+        const screenPosition = window.innerHeight / 1.2;
         
         if (cardPosition < screenPosition) {
-          card.classList.add('animated');
+          setTimeout(() => {
+            card.classList.add('animated');
+          }, index * 150);
         }
       });
       
       features.forEach((feature, index) => {
         const featurePosition = feature.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
+        const screenPosition = window.innerHeight / 1.2;
         
         if (featurePosition < screenPosition) {
-          // Retraso escalonado para cada elemento
           setTimeout(() => {
             feature.classList.add('animated');
           }, index * 100);
@@ -596,11 +874,32 @@
       });
     }
     
+    // Tooltips
+    function initTooltips() {
+      const tooltips = document.querySelectorAll('.tooltip');
+      
+      tooltips.forEach(tooltip => {
+        tooltip.addEventListener('mouseenter', function() {
+          const tooltipText = this.querySelector('.tooltiptext');
+          tooltipText.style.visibility = 'visible';
+          tooltipText.style.opacity = '1';
+        });
+        
+        tooltip.addEventListener('mouseleave', function() {
+          const tooltipText = this.querySelector('.tooltiptext');
+          tooltipText.style.visibility = 'hidden';
+          tooltipText.style.opacity = '0';
+        });
+      });
+    }
+    
+    // Inicialización
     document.addEventListener('DOMContentLoaded', function() {
       createParticles();
       animateOnScroll();
+      initTooltips();
       
-      // Añadir efecto de onda a los botones
+      // Efecto en botones
       const buttons = document.querySelectorAll('.btn');
       buttons.forEach(button => {
         button.addEventListener('click', function(e) {
@@ -608,7 +907,7 @@
         });
       });
       
-      // Efecto especial para el botón de descarga
+      // Botón de descarga
       const downloadBtn = document.getElementById('downloadBtn');
       if (downloadBtn) {
         downloadBtn.addEventListener('mouseover', function() {
@@ -620,11 +919,15 @@
         });
       }
       
-      // Efecto al enviar el formulario
+      // Formulario
       const submitBtn = document.getElementById('submitBtn');
       if (submitBtn) {
         submitBtn.addEventListener('click', function() {
-          this.innerHTML = 'Enviando... <i class="fas fa-spinner fa-spin"></i>';
+          const spinner = document.getElementById('submitSpinner');
+          const text = document.getElementById('submitText');
+          
+          text.textContent = 'Enviando...';
+          spinner.style.display = 'inline-block';
         });
       }
     });
@@ -634,31 +937,42 @@
       animateOnScroll();
     });
     
+    // Validación de formulario mejorada
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       const nombre = document.getElementById('nombre').value.trim();
       const email = document.getElementById('email').value.trim();
+      const asunto = document.getElementById('asunto').value;
       const mensaje = document.getElementById('mensaje').value.trim();
       const submitBtn = document.getElementById('submitBtn');
 
+      // Validaciones
+      let isValid = true;
+      
       if(nombre.length < 3) {
         showAlert('Por favor ingresa tu nombre completo', 'error');
-        e.preventDefault();
-        return;
+        isValid = false;
       }
 
       if(!validateEmail(email)) {
         showAlert('Ingresa un correo electrónico válido', 'error');
-        e.preventDefault();
-        return;
+        isValid = false;
+      }
+
+      if(!asunto) {
+        showAlert('Por favor selecciona un asunto', 'error');
+        isValid = false;
       }
 
       if(mensaje.length < 10) {
         showAlert('El mensaje debe tener al menos 10 caracteres', 'error');
+        isValid = false;
+      }
+
+      if(!isValid) {
         e.preventDefault();
         return;
       }
 
-      submitBtn.innerHTML = 'Enviando <span class="spinner">...</span>';
       showAlert('Enviando tu mensaje...', 'success');
     });
 
@@ -670,6 +984,10 @@
         alertSuccess.textContent = message;
         alertSuccess.style.display = 'block';
         alertError.style.display = 'none';
+        
+        setTimeout(() => {
+          alertSuccess.style.display = 'none';
+        }, 5000);
       } else {
         alertError.textContent = message;
         alertError.style.display = 'block';
@@ -682,13 +1000,29 @@
       return re.test(email);
     }
 
+    // Manejo de respuesta del formulario
     window.addEventListener('DOMContentLoaded', function() {
       const urlParams = new URLSearchParams(window.location.search);
+      
       if(urlParams.has('success')) {
-        showAlert('¡Mensaje enviado correctamente!', 'success');
+        showAlert('¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto.', 'success');
+        document.getElementById('contactForm').reset();
+        
+        // Restablecer botón de enviar
+        const spinner = document.getElementById('submitSpinner');
+        const text = document.getElementById('submitText');
+        spinner.style.display = 'none';
+        text.textContent = 'Enviar Mensaje';
       }
+      
       if(urlParams.has('error')) {
-        showAlert('Error al enviar el mensaje. Intenta nuevamente.', 'error');
+        showAlert('Error al enviar el mensaje. Por favor intenta nuevamente más tarde.', 'error');
+        
+        // Restablecer botón de enviar
+        const spinner = document.getElementById('submitSpinner');
+        const text = document.getElementById('submitText');
+        spinner.style.display = 'none';
+        text.textContent = 'Enviar Mensaje';
       }
     });
   </script>
