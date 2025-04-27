@@ -228,6 +228,9 @@
       }
     }
   </style>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <header>
@@ -298,20 +301,7 @@
     <section class="card">
       <h2>Testimonios Reales</h2>
       <div class="testimonials" id="testimonials-container">
-        <div class="testimonial">
-          <img src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="Usuario">
-          <div class="testimonial-content">
-            <p>"Este antivirus detectó una app que estaba robando mis contraseñas. ¡Salvó mis cuentas!"</p>
-            <strong>- Ana, Estudiante</strong>
-          </div>
-        </div>
-        <div class="testimonial">
-          <img src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="Usuario">
-          <div class="testimonial-content">
-            <p>"La función de bloqueo de links maliciosos es increíble. Ya no temo hacer clic en enlaces."</p>
-            <strong>- Carlos, Profesor</strong>
-          </div>
-        </div>
+        <!-- Testimonios se cargarán aquí dinámicamente -->
       </div>
 
       <div class="testimonial-form">
@@ -387,117 +377,81 @@
         <img src="https://cdn-icons-png.freepik.com/256/16389/16389657.png?semt=ais_hybrid" alt="Logo UAMpanas" class="footer-logo">
       </div>
       <p>© 2023 Antivirus UAMpanas. Proyecto desarrollado por la comunidad universitaria.</p>
-      <p><small>Todos los derechos reservados | <a href="#" style="color: white;">Política de privacidad</a></small></p>
+      <p><small>Proyecto ficticio con fines educativos. No es un producto real.</small></p>
     </div>
   </footer>
 
   <script>
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      const nombre = document.getElementById('nombre').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const mensaje = document.getElementById('mensaje').value.trim();
-      
-      if(nombre.length < 3) {
-        showAlert('Por favor ingresa tu nombre completo', 'error');
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1x...",
+      authDomain: "tu-proyecto.firebaseapp.com",
+      projectId: "tu-proyecto",
+      storageBucket: "tu-proyecto.appspot.com",
+      messagingSenderId: "123456789",
+      appId: "1:123456789:web:abc123def456"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTestimonials();
+      document.getElementById('testimonialForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        return;
-      }
-      
-      if(!validateEmail(email)) {
-        showAlert('Ingresa un correo electrónico válido', 'error');
-        e.preventDefault();
-        return;
-      }
-      
-      if(mensaje.length < 10) {
-        showAlert('El mensaje debe tener al menos 10 caracteres', 'error');
-        e.preventDefault();
-        return;
-      }
-      
-      showAlert('Enviando tu mensaje...', 'success');
+        const name = document.getElementById('testimonial-name').value.trim();
+        const role = document.getElementById('testimonial-role').value;
+        const text = document.getElementById('testimonial-text').value.trim();
+        
+        if (!name || !role || !text) {
+          showAlert('testimonialAlert', 'Completa todos los campos', 'error');
+          return;
+        }
+        
+        try {
+          await db.collection("testimonials").add({
+            name,
+            role,
+            text,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          document.getElementById('testimonialForm').reset();
+          showAlert('testimonialAlert', '¡Testimonio publicado!', 'success');
+        } catch (error) {
+          showAlert('testimonialAlert', 'Error al enviar: ' + error.message, 'error');
+        }
+      });
     });
-
-    document.getElementById('testimonialForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const name = document.getElementById('testimonial-name').value.trim();
-      const role = document.getElementById('testimonial-role').value;
-      const text = document.getElementById('testimonial-text').value.trim();
-      
-      if(name.length < 3) {
-        showTestimonialAlert('Por favor ingresa tu nombre', 'error');
-        return;
-      }
-      
-      if(!role) {
-        showTestimonialAlert('Por favor selecciona tu rol', 'error');
-        return;
-      }
-      
-      if(!text) {
-        showTestimonialAlert('Por favor escribe tu testimonio', 'error');
-        return;
-      }
-      
-      const testimonialContainer = document.getElementById('testimonials-container');
-      const newTestimonial = document.createElement('div');
-      newTestimonial.className = 'testimonial';
-      
-      newTestimonial.innerHTML = `
-        <img src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="${name}">
-        <div class="testimonial-content">
-          <p>"${text}"</p>
-          <strong>- ${name}, ${role}</strong>
+    function loadTestimonials() {
+      db.collection("testimonials")
+        .orderBy("timestamp", "desc")
+        .onSnapshot((snapshot) => {
+          const container = document.getElementById('testimonials-container');
+          container.innerHTML = '';
+          
+          snapshot.forEach((doc) => {
+            const { name, role, text } = doc.data();
+            renderTestimonial(name, role, text);
+          });
+        });
+    }
+    function renderTestimonial(name, role, text) {
+      const container = document.getElementById('testimonials-container');
+      const testimonialHTML = `
+        <div class="testimonial">
+          <img src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="${name}">
+          <div class="testimonial-content">
+            <p>"${text}"</p>
+            <strong>- ${name}, ${role}</strong>
+          </div>
         </div>
       `;
-      
-      testimonialContainer.prepend(newTestimonial);
-      
-      document.getElementById('testimonialForm').reset();
-      showTestimonialAlert('¡Gracias por tu testimonio!', 'success');
-    });
-
-    function showTestimonialAlert(message, type) {
-      const alert = document.getElementById('testimonialAlert');
+      container.insertAdjacentHTML('beforeend', testimonialHTML);
+    }
+    function showAlert(elementId, message, type) {
+      const alert = document.getElementById(elementId);
       alert.textContent = message;
       alert.className = `alert alert-${type}`;
       alert.style.display = 'block';
-      
-      setTimeout(() => {
-        alert.style.display = 'none';
-      }, 5000);
+      setTimeout(() => alert.style.display = 'none', 5000);
     }
-
-    function showAlert(message, type) {
-      const alertSuccess = document.getElementById('alertSuccess');
-      const alertError = document.getElementById('alertError');
-      
-      if(type === 'success') {
-        alertSuccess.textContent = message;
-        alertSuccess.style.display = 'block';
-        alertError.style.display = 'none';
-      } else {
-        alertError.textContent = message;
-        alertError.style.display = 'block';
-        alertSuccess.style.display = 'none';
-      }
-    }
-    
-    function validateEmail(email) {
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return re.test(email);
-    }
-    
-    window.addEventListener('DOMContentLoaded', function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      if(urlParams.has('success')) {
-        showAlert('¡Mensaje enviado correctamente!', 'success');
-      }
-      if(urlParams.has('error')) {
-        showAlert('Error al enviar el mensaje. Intenta nuevamente.', 'error');
-      }
-    });
   </script>
 </body>
 </html>
