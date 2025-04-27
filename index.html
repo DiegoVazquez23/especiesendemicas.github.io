@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Antivirus UAMpanas</title>
+  <!-- Font Awesome para íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Animate.css para animaciones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <style>
     :root {
       --primary: #1f2937;
@@ -11,6 +15,10 @@
       --accent: #22c55e;
       --text: #333333;
       --light: #f8f9fa;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -19,13 +27,26 @@
       background-color: var(--light);
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
     header {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary) 0%, #111827 100%);
       color: white;
       padding: 3rem 1rem;
       text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+      z-index: 0;
     }
     .header-content {
       display: flex;
@@ -33,6 +54,8 @@
       justify-content: center;
       gap: 3rem;
       flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
     }
     .header-logos {
       display: flex;
@@ -41,6 +64,7 @@
     }
     header img {
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      transition: var(--transition);
     }
     .uam-logo {
       width: 180px;
@@ -49,6 +73,12 @@
     .app-logo {
       width: 100px;
       height: 100px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
     .container {
       max-width: 1200px;
@@ -58,13 +88,26 @@
     .card {
       background: white;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      box-shadow: var(--shadow-sm);
       padding: 2rem;
       margin: 2rem 0;
-      transition: transform 0.3s ease;
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
     }
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.3s; }
+    .card:nth-child(3) { animation-delay: 0.5s; }
     .card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-5px) !important;
+      box-shadow: var(--shadow-lg);
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     .btn {
       display: inline-block;
@@ -74,14 +117,43 @@
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       border: none;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .btn::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
     }
     .btn:hover {
       background: #16a34a;
       transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-md);
+    }
+    .btn:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(20, 20);
+        opacity: 0;
+      }
     }
     .btn-secondary {
       background: var(--secondary);
@@ -94,6 +166,7 @@
     }
     .form-group {
       margin-bottom: 1.5rem;
+      position: relative;
     }
     label {
       display: block;
@@ -107,7 +180,7 @@
       border-radius: 6px;
       font-family: inherit;
       font-size: 1rem;
-      transition: border 0.3s ease;
+      transition: var(--transition);
     }
     input:focus, textarea:focus, select:focus {
       outline: none;
@@ -129,11 +202,35 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      transition: var(--transition);
+      transform: perspective(500px) rotateY(15deg);
+      opacity: 0;
+      animation: featureItemIn 0.5s forwards;
+    }
+    .feature-item:nth-child(1) { animation-delay: 0.2s; }
+    .feature-item:nth-child(2) { animation-delay: 0.4s; }
+    .feature-item:nth-child(3) { animation-delay: 0.6s; }
+    .feature-item:nth-child(4) { animation-delay: 0.8s; }
+    .feature-item:nth-child(5) { animation-delay: 1.0s; }
+    .feature-item:nth-child(6) { animation-delay: 1.2s; }
+    @keyframes featureItemIn {
+      to {
+        opacity: 1;
+        transform: perspective(500px) rotateY(0);
+      }
+    }
+    .feature-item:hover {
+      transform: translateY(-5px) scale(1.02) !important;
+      box-shadow: var(--shadow-md);
     }
     .feature-item img {
       width: 80px;
       height: 80px;
       margin-bottom: 1rem;
+      transition: var(--transition);
+    }
+    .feature-item:hover img {
+      transform: rotate(5deg) scale(1.1);
     }
     .testimonials {
       display: grid;
@@ -148,12 +245,34 @@
       display: flex;
       align-items: flex-start;
       gap: 1rem;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: testimonialIn 0.6s forwards;
+    }
+    .testimonial:nth-child(1) { animation-delay: 0.2s; }
+    .testimonial:nth-child(2) { animation-delay: 0.4s; }
+    .testimonial:nth-child(3) { animation-delay: 0.6s; }
+    @keyframes testimonialIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .testimonial:hover {
+      transform: translateY(-5px) !important;
+      box-shadow: var(--shadow-md);
     }
     .testimonial img {
       width: 60px;
       height: 60px;
       border-radius: 50%;
       object-fit: cover;
+      transition: var(--transition);
+    }
+    .testimonial:hover img {
+      transform: rotate(360deg);
     }
     .testimonial-content {
       flex: 1;
@@ -163,12 +282,22 @@
       padding: 2rem;
       border-radius: 8px;
       margin-top: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .testimonial-form:hover {
+      box-shadow: var(--shadow-md);
     }
     .alert {
       padding: 1rem;
       border-radius: 6px;
       margin: 1rem 0;
       display: none;
+      animation: fadeIn 0.3s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     .alert-success {
       background: #dcfce7;
@@ -181,11 +310,22 @@
       border-left: 4px solid #ef4444;
     }
     footer {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary) 0%, #111827 100%);
       color: white;
       text-align: center;
       padding: 2rem;
       margin-top: 3rem;
+      position: relative;
+    }
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 80% 30%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+      z-index: 0;
     }
     .footer-logos {
       display: flex;
@@ -193,10 +333,79 @@
       align-items: center;
       gap: 3rem;
       margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
     }
     .footer-logo {
       height: 100px;
       width: auto;
+      transition: var(--transition);
+    }
+    .footer-logo:hover {
+      transform: scale(1.05);
+    }
+    .floating-shapes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .shape {
+      position: absolute;
+      opacity: 0.1;
+      border-radius: 50%;
+      animation: float 15s infinite linear;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+      100% { transform: translateY(0) rotate(360deg); }
+    }
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--secondary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      opacity: 0;
+      visibility: hidden;
+      z-index: 100;
+    }
+    .scroll-top.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-top:hover {
+      background: var(--accent);
+      transform: translateY(-5px);
+    }
+    .progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: transparent;
+      z-index: 1000;
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+      width: 0%;
+      transition: width 0.1s;
     }
     @media (max-width: 768px) {
       header {
@@ -227,23 +436,106 @@
         height: 90px;
       }
     }
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    /* Tooltip para íconos */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: var(--primary);
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+    }
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+    /* Efecto de onda al hacer clic */
+    .wave-effect {
+      position: relative;
+      overflow: hidden;
+    }
+    .wave-effect:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+      background-repeat: no-repeat;
+      background-position: 50%;
+      transform: scale(10, 10);
+      opacity: 0;
+      transition: transform .5s, opacity 1s;
+    }
+    .wave-effect:active:after {
+      transform: scale(0, 0);
+      opacity: 0.3;
+      transition: 0s;
+    }
   </style>
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
+  <!-- Barra de progreso -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Botón para ir arriba -->
+  <div class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- Formas flotantes decorativas -->
+  <div class="floating-shapes">
+    <div class="shape" style="width: 100px; height: 100px; background: var(--secondary); top: 20%; left: 10%; animation-delay: 0s;"></div>
+    <div class="shape" style="width: 150px; height: 150px; background: var(--accent); top: 60%; left: 80%; animation-delay: 2s;"></div>
+    <div class="shape" style="width: 80px; height: 80px; background: var(--secondary); top: 80%; left: 20%; animation-delay: 4s;"></div>
+  </div>
+
   <header>
     <div class="container">
       <div class="header-content">
         <div class="header-logos">
-          <img src="https://lh5.googleusercontent.com/proxy/_2kgdsApltGVl7jrwcThtNtNTpLgw0dlzEjZ2e5IpAynQ9W_xcMY9Ka_MvcAEy-gN80Yn33dTIn7TcUN" alt="Logo UAM" class="uam-logo">
-          <img src="https://cdn-icons-png.freepik.com/256/16389/16389657.png?semt=ais_hybrid" alt="Logo UAMpanas" class="app-logo">
+          <img src="https://lh5.googleusercontent.com/proxy/_2kgdsApltGVl7jrwcThtNtNTpLgw0dlzEjZ2e5IpAynQ9W_xcMY9Ka_MvcAEy-gN80Yn33dTIn7TcUN" alt="Logo UAM" class="uam-logo animate__animated animate__fadeInLeft">
+          <img src="https://cdn-icons-png.freepik.com/256/16389/16389657.png?semt=ais_hybrid" alt="Logo UAMpanas" class="app-logo animate__animated animate__fadeIn animate__delay-1s">
         </div>
-        <div>
+        <div class="animate__animated animate__fadeInRight">
           <h1>🛡️ Antivirus UAMpanas</h1>
           <p>Protección avanzada para tu dispositivo móvil</p>
-          <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn" target="_blank" rel="noopener noreferrer">Descargar Ahora</a>
+          <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn wave-effect" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-download"></i> Descargar Ahora
+          </a>
         </div>
       </div>
     </div>
@@ -251,69 +543,74 @@
 
   <main class="container">
     <section id="caracteristicas" class="card">
-      <h2>Características Principales</h2>
+      <h2><i class="fas fa-star tooltip"></i> Características Principales</h2>
       <div class="features">
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/2452/2452056.png" alt="Protección en tiempo real">
-          <h3>🔒 Protección en Tiempo Real</h3>
+          <h3><i class="fas fa-shield-alt tooltip"></i> Protección en Tiempo Real</h3>
           <p>Escaneo continuo contra malware, spyware y ransomware.</p>
         </div>
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/2452/2452039.png" alt="Cortafuegos">
-          <h3>🛡️ Cortafuegos Integrado</h3>
+          <h3><i class="fas fa-fire tooltip"></i> Cortafuegos Integrado</h3>
           <p>Bloquea conexiones sospechosas y protege tu privacidad.</p>
         </div>
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" alt="Optimización móvil">
-          <h3>📱 Optimizado para Móviles</h3>
+          <h3><i class="fas fa-mobile-alt tooltip"></i> Optimizado para Móviles</h3>
           <p>Bajo consumo de batería y recursos del sistema.</p>
         </div>
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/64/64673.png" alt="Escaneo rápido">
-          <h3>⚡ Escaneo Ultra Rápido</h3>
+          <h3><i class="fas fa-bolt tooltip"></i> Escaneo Ultra Rápido</h3>
           <p>Analiza tu dispositivo en minutos sin ralentizarlo.</p>
         </div>
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/3064/3064155.png" alt="Protección web">
-          <h3>🌐 Protección Web</h3>
+          <h3><i class="fas fa-globe tooltip"></i> Protección Web</h3>
           <p>Bloquea sitios peligrosos y enlaces maliciosos.</p>
         </div>
         <div class="feature-item">
           <img src="https://cdn-icons-png.flaticon.com/512/3064/3064173.png" alt="Privacidad">
-          <h3>👁️ Protección de Privacidad</h3>
+          <h3><i class="fas fa-user-secret tooltip"></i> Protección de Privacidad</h3>
           <p>Identifica y bloquea apps que acceden a datos sensibles.</p>
         </div>
       </div>
     </section>
 
     <section id="descargar" class="card">
-      <h2>Descarga Gratuita</h2>
+      <h2><i class="fas fa-download tooltip"></i> Descarga Gratuita</h2>
       <p>Disponible exclusivamente para la comunidad UAM</p>
       <div style="display: flex; align-items: center; gap: 2rem; margin: 1.5rem 0;">
-        <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Android" style="width: 80px;">
+        <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Android" style="width: 80px;" class="animate__animated animate__pulse animate__infinite">
         <div>
-          <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn" target="_blank" rel="noopener noreferrer">📲 Descargar para Android</a>
+          <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn wave-effect" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-android"></i> Descargar para Android
+          </a>
           <p><small>Disponible en Google Play Store</small></p>
         </div>
       </div>
     </section>
 
     <section class="card">
-      <h2>Testimonios Reales</h2>
+      <h2><i class="fas fa-comments tooltip"></i> Testimonios Reales</h2>
       <div class="testimonials" id="testimonials-container">
-        <!-- Testimonios se cargarán aquí dinámicamente -->
+        <div id="loading-testimonials" style="text-align: center; padding: 2rem;">
+          <div class="loading" style="width: 40px; height: 40px; margin: 0 auto;"></div>
+          <p>Cargando testimonios...</p>
+        </div>
       </div>
 
       <div class="testimonial-form">
-        <h3>¡Comparte tu experiencia!</h3>
+        <h3><i class="fas fa-edit tooltip"></i> ¡Comparte tu experiencia!</h3>
         <div id="testimonialAlert" class="alert" style="display: none;"></div>
         <form id="testimonialForm">
           <div class="form-group">
-            <label for="testimonial-name">Nombre</label>
+            <label for="testimonial-name"><i class="fas fa-user"></i> Nombre</label>
             <input type="text" id="testimonial-name" required minlength="3">
           </div>
           <div class="form-group">
-            <label for="testimonial-role">Rol</label>
+            <label for="testimonial-role"><i class="fas fa-user-tag"></i> Rol</label>
             <select id="testimonial-role" required>
               <option value="">Selecciona tu rol</option>
               <option value="Estudiante">Estudiante</option>
@@ -324,16 +621,19 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="testimonial-text">Tu testimonio</label>
+            <label for="testimonial-text"><i class="fas fa-comment-dots"></i> Tu testimonio</label>
             <textarea id="testimonial-text" rows="4" required></textarea>
           </div>
-          <button type="submit" class="btn btn-secondary">Enviar Testimonio</button>
+          <button type="submit" class="btn btn-secondary wave-effect" id="submit-testimonial">
+            <span id="submit-text"><i class="fas fa-paper-plane"></i> Enviar Testimonio</span>
+            <span id="submit-loader" class="loading" style="display: none;"></span>
+          </button>
         </form>
       </div>
     </section>
 
     <section id="contacto" class="card">
-      <h2>Contáctanos</h2>
+      <h2><i class="fas fa-envelope tooltip"></i> Contáctanos</h2>
       <p>¿Tienes preguntas o sugerencias? Escríbenos:</p>
       
       <div id="alertSuccess" class="alert alert-success"></div>
@@ -351,21 +651,23 @@
         <input type="text" name="_honey" style="display:none">
         
         <div class="form-group">
-          <label for="nombre">Nombre completo</label>
+          <label for="nombre"><i class="fas fa-user-circle"></i> Nombre completo</label>
           <input type="text" id="nombre" name="nombre" required minlength="3">
         </div>
         
         <div class="form-group">
-          <label for="email">Correo electrónico</label>
+          <label for="email"><i class="fas fa-envelope"></i> Correo electrónico</label>
           <input type="email" id="email" name="email" required>
         </div>
         
         <div class="form-group">
-          <label for="mensaje">Tu mensaje</label>
+          <label for="mensaje"><i class="fas fa-comment-alt"></i> Tu mensaje</label>
           <textarea id="mensaje" name="mensaje" rows="5" required minlength="10"></textarea>
         </div>
         
-        <button type="submit" class="btn btn-secondary">Enviar Mensaje</button>
+        <button type="submit" class="btn btn-secondary wave-effect">
+          <i class="fas fa-paper-plane"></i> Enviar Mensaje
+        </button>
       </form>
     </section>
   </main>
@@ -376,12 +678,19 @@
         <img src="https://lh5.googleusercontent.com/proxy/_2kgdsApltGVl7jrwcThtNtNTpLgw0dlzEjZ2e5IpAynQ9W_xcMY9Ka_MvcAEy-gN80Yn33dTIn7TcUN" alt="Logo UAM" class="footer-logo">
         <img src="https://cdn-icons-png.freepik.com/256/16389/16389657.png?semt=ais_hybrid" alt="Logo UAMpanas" class="footer-logo">
       </div>
-      <p>© 2023 Antivirus UAMpanas. Proyecto desarrollado por la comunidad universitaria.</p>
-      <p><small>Proyecto ficticio con fines educativos. No es un producto real.</small></p>
+      <p>© 2025 Antivirus UAMpanas. Proyecto desarrollado por la comunidad universitaria.</p>
+      <p><small>Proyecto con fines educativos</small></p>
+      <div style="margin-top: 1rem;">
+        <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-twitter"></i></a>
+        <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
+        <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-linkedin-in"></i></a>
+      </div>
     </div>
   </footer>
 
   <script>
+    // Configuración de Firebase (REEMPLAZA CON TUS DATOS)
     const firebaseConfig = {
       apiKey: "AIzaSyA1x...",
       authDomain: "tu-proyecto.firebaseapp.com",
@@ -390,12 +699,97 @@
       messagingSenderId: "123456789",
       appId: "1:123456789:web:abc123def456"
     };
+
+    // Inicializar Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
+
+    // Referencias a elementos del DOM
+    const testimonialForm = document.getElementById('testimonialForm');
+    const submitBtn = document.getElementById('submit-testimonial');
+    const submitText = document.getElementById('submit-text');
+    const submitLoader = document.getElementById('submit-loader');
+    const loadingElement = document.getElementById('loading-testimonials');
+    const scrollTopBtn = document.getElementById('scrollTop');
+    const progressBar = document.getElementById('progressBar');
+
+    // Barra de progreso al hacer scroll
+    window.addEventListener('scroll', () => {
+      const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPosition = window.scrollY;
+      const scrollPercentage = (scrollPosition / scrollTotal) * 100;
+      progressBar.style.width = scrollPercentage + '%';
+      
+      // Mostrar u ocultar botón de ir arriba
+      if (scrollPosition > 300) {
+        scrollTopBtn.classList.add('active');
+      } else {
+        scrollTopBtn.classList.remove('active');
+      }
+    });
+
+    // Ir arriba al hacer clic
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Efecto de scroll suave para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Efecto de onda al hacer clic
+    document.querySelectorAll('.wave-effect').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const wave = document.createElement('span');
+        wave.className = 'wave';
+        wave.style.left = x + 'px';
+        wave.style.top = y + 'px';
+        this.appendChild(wave);
+        
+        setTimeout(() => {
+          wave.remove();
+        }, 500);
+      });
+    });
+
+    // Cargar testimonios al iniciar
     document.addEventListener('DOMContentLoaded', () => {
       loadTestimonials();
-      document.getElementById('testimonialForm').addEventListener('submit', async (e) => {
+      
+      // Animación para elementos al aparecer en el viewport
+      const animateOnScroll = () => {
+        const cards = document.querySelectorAll('.card, .feature-item, .testimonial');
+        cards.forEach(card => {
+          const cardPosition = card.getBoundingClientRect().top;
+          const screenPosition = window.innerHeight / 1.3;
+          
+          if (cardPosition < screenPosition) {
+            card.style.animationPlayState = 'running';
+          }
+        });
+      };
+      
+      window.addEventListener('scroll', animateOnScroll);
+      animateOnScroll(); // Ejecutar una vez al cargar
+      
+      // Manejar envío de formulario
+      testimonialForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        
         const name = document.getElementById('testimonial-name').value.trim();
         const role = document.getElementById('testimonial-role').value;
         const text = document.getElementById('testimonial-text').value.trim();
@@ -406,37 +800,69 @@
         }
         
         try {
+          // Mostrar loader
+          submitText.innerHTML = "<i class='fas fa-spinner fa-spin'></i> Enviando...";
+          submitBtn.disabled = true;
+          
+          // Guardar en Firestore
           await db.collection("testimonials").add({
             name,
             role,
             text,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
           });
-          document.getElementById('testimonialForm').reset();
-          showAlert('testimonialAlert', '¡Testimonio publicado!', 'success');
+          
+          // Limpiar formulario
+          testimonialForm.reset();
+          showAlert('testimonialAlert', '¡Testimonio publicado con éxito!', 'success');
         } catch (error) {
+          console.error("Error al guardar testimonio:", error);
           showAlert('testimonialAlert', 'Error al enviar: ' + error.message, 'error');
+        } finally {
+          // Restaurar botón
+          submitText.innerHTML = "<i class='fas fa-paper-plane'></i> Enviar Testimonio";
+          submitBtn.disabled = false;
         }
       });
     });
+
+    // Cargar testimonios desde Firestore
     function loadTestimonials() {
       db.collection("testimonials")
         .orderBy("timestamp", "desc")
         .onSnapshot((snapshot) => {
           const container = document.getElementById('testimonials-container');
+          
+          // Ocultar loader
+          if (loadingElement) loadingElement.style.display = 'none';
+          
+          // Limpiar contenedor
           container.innerHTML = '';
           
+          if (snapshot.empty) {
+            container.innerHTML = '<p style="text-align: center; grid-column: 1/-1;">No hay testimonios aún. ¡Sé el primero en compartir!</p>';
+            return;
+          }
+          
+          // Mostrar cada testimonio
           snapshot.forEach((doc) => {
             const { name, role, text } = doc.data();
             renderTestimonial(name, role, text);
           });
+        }, (error) => {
+          console.error("Error al cargar testimonios:", error);
+          if (loadingElement) {
+            loadingElement.innerHTML = '<p style="color: #ef4444;">Error al cargar testimonios. Recarga la página.</p>';
+          }
         });
     }
+
+    // Mostrar testimonio en el HTML
     function renderTestimonial(name, role, text) {
       const container = document.getElementById('testimonials-container');
       const testimonialHTML = `
         <div class="testimonial">
-          <img src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="${name}">
+          <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=3b82f6&color=fff" alt="${name}">
           <div class="testimonial-content">
             <p>"${text}"</p>
             <strong>- ${name}, ${role}</strong>
@@ -445,12 +871,17 @@
       `;
       container.insertAdjacentHTML('beforeend', testimonialHTML);
     }
+
+    // Mostrar alertas
     function showAlert(elementId, message, type) {
       const alert = document.getElementById(elementId);
-      alert.textContent = message;
+      alert.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${message}`;
       alert.className = `alert alert-${type}`;
       alert.style.display = 'block';
-      setTimeout(() => alert.style.display = 'none', 5000);
+      setTimeout(() => {
+        alert.style.animation = 'fadeOut 0.5s forwards';
+        setTimeout(() => alert.style.display = 'none', 500);
+      }, 5000);
     }
   </script>
 </body>
