@@ -17,8 +17,6 @@
       --dark: #111827;
       --gray: #6b7280;
     }
-    
-    /* Barra de progreso mejorada */
     .progress-container {
       position: fixed;
       top: 0;
@@ -58,8 +56,6 @@
                 transparent);
       animation: shimmer 2s infinite;
     }
-    
-    /* Mejoras globales */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -79,8 +75,6 @@
       padding: 0;
       overflow-x: hidden;
     }
-    
-    /* Header mejorado */
     header {
       background: linear-gradient(135deg, var(--primary), var(--dark));
       color: white;
@@ -171,15 +165,11 @@
       margin-bottom: 1.25rem;
       color: var(--gray);
     }
-    
-    /* Contenedor principal mejorado */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 1.5rem;
     }
-    
-    /* Cards mejoradas */
     .card {
       background: white;
       border-radius: 16px;
@@ -201,8 +191,6 @@
       transform: translateY(-8px);
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
-    
-    /* Botones mejorados */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -241,7 +229,7 @@
       box-shadow: 0 10px 15px rgba(59, 130, 246, 0.3);
     }
     
-    /* Formulario mejorado */
+    /* Formulario */
     form {
       margin-top: 2rem;
     }
@@ -274,8 +262,6 @@
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
       background: white;
     }
-    
-    /* Features mejorados */
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -320,7 +306,7 @@
       transform: rotate(5deg) scale(1.1);
     }
     
-    /* Alertas mejoradas */
+    /* Alertas */
     .alert {
       padding: 1.25rem;
       border-radius: 8px;
@@ -341,8 +327,6 @@
       color: #991b1b;
       border-left-color: #ef4444;
     }
-    
-    /* Footer mejorado */
     footer {
       background: linear-gradient(135deg, var(--primary), var(--dark));
       color: white;
@@ -396,7 +380,7 @@
       text-decoration: underline;
     }
     
-    /* Animaciones mejoradas */
+    /* Animaciones */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -417,7 +401,7 @@
       animation: float 4s ease-in-out infinite;
     }
     
-    /* Efecto de partículas mejorado */
+    /* Efecto de partículas */
     .particles {
       position: absolute;
       top: 0;
@@ -453,7 +437,7 @@
       }
     }
     
-    /* Efecto de onda mejorado */
+    /* Efecto de onda */
     .wave {
       position: absolute;
       top: 50%;
@@ -474,7 +458,7 @@
       }
     }
     
-    /* Efecto de pulso mejorado */
+    /* Efecto de pulso */
     .pulse {
       animation: pulse 2s infinite;
     }
@@ -491,7 +475,7 @@
       }
     }
     
-    /* Sección de descargas mejorada */
+    /* Sección de descargas */
     .download-platforms {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -566,8 +550,6 @@
       position: absolute;
       left: 0;
     }
-    
-    /* Badges de plataforma */
     .platform-badge {
       display: inline-block;
       background: var(--secondary);
@@ -578,8 +560,6 @@
       font-weight: 600;
       margin-bottom: 1rem;
     }
-    
-    /* Mejoras responsive */
     @media (max-width: 1024px) {
       .header-content {
         flex-direction: column;
@@ -651,7 +631,7 @@
       }
     }
     
-    /* Scroll personalizado */
+    /* Scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -697,8 +677,6 @@
       visibility: visible;
       opacity: 1;
     }
-
-    /* Estilos para FAQ */
     .faq-item {
       background: #f8fafc;
       border-radius: 8px;
@@ -715,8 +693,6 @@
     .faq-item p {
       color: var(--gray);
     }
-
-    /* Estilos para términos y política */
     ol, ul {
       margin: 1rem 0;
       padding-left: 2rem;
@@ -728,12 +704,9 @@
   </style>
 </head>
 <body>
-  <!-- Barra de progreso mejorada -->
   <div class="progress-container" id="progressContainer">
     <div class="progress-bar" id="progressBar"></div>
   </div>
-
-  <!-- Header mejorado -->
   <header>
     <div class="particles" id="particles"></div>
     <div class="container">
@@ -924,8 +897,6 @@
         </button>
       </form>
     </section>
-
-    <!-- Secciones dinámicas que se cargan cuando se hace clic en los enlaces del footer -->
     <div id="dynamic-content"></div>
   </main>
 
@@ -956,7 +927,6 @@
   </footer>
 
   <script>
-    // Barra de progreso mejorada
     function updateProgressBar() {
       const progressBar = document.getElementById('progressBar');
       const progressContainer = document.getElementById('progressContainer');
@@ -974,7 +944,7 @@
       }
     }
     
-    // Animación de partículas mejorada
+    // Animación de partículas
     function createParticles() {
       const particlesContainer = document.getElementById('particles');
       const particleCount = Math.floor(window.innerWidth / 20);
@@ -998,7 +968,7 @@
       }
     }
     
-    // Efecto de onda mejorado
+    // Efecto de onda
     function createWaveEffect(button, e) {
       const wave = document.createElement('span');
       wave.classList.add('wave');
@@ -1016,8 +986,6 @@
         wave.remove();
       }, 800);
     }
-    
-    // Animación al hacer scroll mejorada
     function animateOnScroll() {
       const cards = document.querySelectorAll('.card');
       const features = document.querySelectorAll('.feature-item');
@@ -1057,8 +1025,6 @@
         }
       });
     }
-    
-    // Tooltips
     function initTooltips() {
       const tooltips = document.querySelectorAll('.tooltip');
       
@@ -1076,22 +1042,14 @@
         });
       });
     }
-    
-    // Mostrar contenido dinámico
     function showDynamicContent(content) {
       const main = document.querySelector('main.container');
       const dynamicContent = document.getElementById('dynamic-content');
-      
-      // Ocultar todas las secciones principales
       document.querySelectorAll('main.container > section').forEach(section => {
         section.style.display = 'none';
       });
-      
-      // Mostrar el contenido dinámico
       dynamicContent.innerHTML = content;
       dynamicContent.style.display = 'block';
-      
-      // Crear botón de volver
       const backButton = document.createElement('button');
       backButton.textContent = 'Volver al Inicio';
       backButton.className = 'btn btn-secondary';
@@ -1102,16 +1060,11 @@
       backButton.style.marginRight = 'auto';
       
       backButton.addEventListener('click', function() {
-        // Mostrar todas las secciones principales
         document.querySelectorAll('main.container > section').forEach(section => {
           section.style.display = 'block';
         });
-        
-        // Ocultar contenido dinámico
         dynamicContent.style.display = 'none';
         dynamicContent.innerHTML = '';
-        
-        // Scroll al inicio
         window.scrollTo({top: 0, behavior: 'smooth'});
       });
       
@@ -1152,8 +1105,6 @@
           spinner.style.display = 'inline-block';
         });
       }
-      
-      // Manejadores para enlaces del footer
       document.getElementById('faq-link').addEventListener('click', function(e) {
         e.preventDefault();
         showDynamicContent(`
@@ -1257,7 +1208,7 @@
       animateOnScroll();
     });
     
-    // Validación de formulario mejorada
+    // Validación de formulario
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       const nombre = document.getElementById('nombre').value.trim();
       const email = document.getElementById('email').value.trim();
