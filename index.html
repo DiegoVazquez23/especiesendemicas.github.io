@@ -1,1304 +1,509 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Antivirus UAMpanas - Protección avanzada para dispositivos móviles y PC de la comunidad universitaria">
-  <meta name="keywords" content="antivirus, seguridad, UAM, móvil, protección, PC, descargar">
-  <title>Antivirus UAMpanas | Protección Avanzada</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/16389/16389657.png" type="image/png">
-  <style>
-    :root {
-      --primary: #1f2937;
-      --secondary: #3b82f6;
-      --accent: #22c55e;
-      --text: #333333;
-      --light: #f8f9fa;
-      --dark: #111827;
-      --gray: #6b7280;
-    }
-    .progress-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: rgba(59, 130, 246, 0.1);
-      z-index: 1000;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .progress-container.scrolled {
-      height: 6px;
-      backdrop-filter: blur(4px);
-    }
-    
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--secondary), var(--accent));
-      width: 0%;
-      transition: width 0.2s ease-out;
-      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .progress-bar::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.5), 
-                transparent);
-      animation: shimmer 2s infinite;
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: var(--text);
-      background-color: var(--light);
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
-    header {
-      background: linear-gradient(135deg, var(--primary), var(--dark));
-      color: white;
-      padding: 4rem 1rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    }
-    
-    .header-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .header-text {
-      max-width: 800px;
-    }
-    
-    .header-logos {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    
-    header img {
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .uam-logo {
-      width: 200px;
-      height: auto;
-    }
-    
-    .app-logo {
-      width: 120px;
-      height: 120px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      padding: 12px;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-    
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      color: var(--primary);
-      position: relative;
-      display: inline-block;
-    }
-    
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 50px;
-      height: 4px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
-    
-    h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.75rem;
-      color: var(--primary);
-    }
-    
-    p {
-      margin-bottom: 1.25rem;
-      color: var(--gray);
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-    .card {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-      padding: 2.5rem;
-      margin: 3rem 0;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      opacity: 0;
-      transform: translateY(30px);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-    }
-    
-    .card.animated {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 1rem 2rem;
-      background: var(--accent);
-      color: white;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: none;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    
-    .btn:hover {
-      background: #16a34a;
-      transform: translateY(-3px);
-      box-shadow: 0 10px 15px rgba(34, 197, 94, 0.3);
-    }
-    
-    .btn:active {
-      transform: translateY(1px);
-    }
-    
-    .btn-secondary {
-      background: var(--secondary);
-    }
-    
-    .btn-secondary:hover {
-      background: #2563eb;
-      box-shadow: 0 10px 15px rgba(59, 130, 246, 0.3);
-    }
-    
-    /* Formulario */
-    form {
-      margin-top: 2rem;
-    }
-    
-    .form-group {
-      margin-bottom: 1.75rem;
-    }
-    
-    label {
-      display: block;
-      margin-bottom: 0.75rem;
-      font-weight: 600;
-      color: var(--primary);
-    }
-    
-    input, textarea, select {
-      width: 100%;
-      padding: 1rem;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      font-family: inherit;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      background: #f9fafb;
-    }
-    
-    input:focus, textarea:focus, select:focus {
-      outline: none;
-      border-color: var(--secondary);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-      background: white;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-    
-    .feature-item {
-      background: white;
-      padding: 2rem;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      transition: all 0.3s ease;
-      opacity: 0;
-      transform: translateY(20px);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-    }
-    
-    .feature-item.animated {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .feature-item:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    }
-    
-    .feature-item img {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 1.5rem;
-      transition: all 0.5s ease;
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
-    }
-    
-    .feature-item:hover img {
-      transform: rotate(5deg) scale(1.1);
-    }
-    
-    /* Alertas */
-    .alert {
-      padding: 1.25rem;
-      border-radius: 8px;
-      margin: 1.5rem 0;
-      display: none;
-      animation: fadeIn 0.5s ease-out;
-      border-left: 4px solid transparent;
-    }
-    
-    .alert-success {
-      background: #f0fdf4;
-      color: #166534;
-      border-left-color: #22c55e;
-    }
-    
-    .alert-error {
-      background: #fef2f2;
-      color: #991b1b;
-      border-left-color: #ef4444;
-    }
-    footer {
-      background: linear-gradient(135deg, var(--primary), var(--dark));
-      color: white;
-      text-align: center;
-      padding: 4rem 2rem;
-      margin-top: 4rem;
-      position: relative;
-    }
-    
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .footer-logos {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 3rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-    
-    .footer-logo {
-      height: 100px;
-      width: auto;
-      transition: all 0.5s ease;
-      filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-    }
-    
-    .footer-logo:hover {
-      transform: rotate(5deg) scale(1.1);
-    }
-    
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-    
-    .footer-links a {
-      color: white;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-    
-    .footer-links a:hover {
-      color: var(--accent);
-      text-decoration: underline;
-    }
-    
-    /* Animaciones */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
-      100% { transform: translateY(0px); }
-    }
-    
-    @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-    
-    .floating {
-      animation: float 4s ease-in-out infinite;
-    }
-    
-    /* Efecto de partículas */
-    .particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      overflow: hidden;
-    }
-    
-    .particle {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 50%;
-      animation: float-particle linear infinite;
-      filter: blur(1px);
-    }
-    
-    @keyframes float-particle {
-      0% {
-        transform: translateY(0) translateX(0);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) translateX(100px);
-        opacity: 0;
-      }
-    }
-    
-    /* Efecto de onda */
-    .wave {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 10px;
-      height: 10px;
-      background: rgba(255, 255, 255, 0.3);
-      opacity: 1;
-      border-radius: 100%;
-      transform: translate(-50%, -50%) scale(0);
-      animation: wave-animation 0.8s ease-out;
-    }
-    
-    @keyframes wave-animation {
-      to {
-        transform: translate(-50%, -50%) scale(20);
-        opacity: 0;
-      }
-    }
-    
-    /* Efecto de pulso */
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
-      }
-      70% {
-        box-shadow: 0 0 0 15px rgba(34, 197, 94, 0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
-      }
-    }
-    
-    /* Sección de descargas */
-    .download-platforms {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-    
-    .platform-card {
-      background: white;
-      border-radius: 12px;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-    }
-    
-    .platform-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-    
-    .platform-icon {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 1.5rem;
-      object-fit: contain;
-    }
-    
-    .platform-title {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-    
-    .platform-description {
-      margin-bottom: 1.5rem;
-      color: var(--gray);
-    }
-    
-    .platform-requirements {
-      font-size: 0.9rem;
-      color: var(--gray);
-      margin-top: auto;
-      width: 100%;
-    }
-    
-    .requirements-title {
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--primary);
-    }
-    
-    .requirements-list {
-      list-style-type: none;
-      text-align: left;
-      padding-left: 1rem;
-    }
-    
-    .requirements-list li {
-      margin-bottom: 0.25rem;
-      position: relative;
-      padding-left: 1.5rem;
-    }
-    
-    .requirements-list li::before {
-      content: "•";
-      color: var(--accent);
-      position: absolute;
-      left: 0;
-    }
-    .platform-badge {
-      display: inline-block;
-      background: var(--secondary);
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
-    @media (max-width: 1024px) {
-      .header-content {
-        flex-direction: column;
-      }
-      
-      .header-logos {
-        margin-bottom: 2rem;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2rem;
-      }
-      
-      h2 {
-        font-size: 1.75rem;
-      }
-      
-      .card {
-        padding: 2rem 1.5rem;
-      }
-      
-      .btn {
-        padding: 0.875rem 1.5rem;
-      }
-      
-      .features {
-        grid-template-columns: 1fr;
-      }
-      
-      .download-platforms {
-        grid-template-columns: 1fr;
-      }
-      
-      .footer-logos {
-        gap: 2rem;
-      }
-      
-      .footer-links {
-        gap: 1.5rem;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      header {
-        padding: 3rem 1rem;
-      }
-      
-      h1 {
-        font-size: 1.75rem;
-      }
-      
-      h2 {
-        font-size: 1.5rem;
-      }
-      
-      .card {
-        padding: 1.75rem 1.25rem;
-        margin: 2rem 0;
-      }
-      
-      .btn {
-        width: 100%;
-      }
-      
-      .footer-logos {
-        flex-direction: column;
-      }
-    }
-    
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-      background: var(--secondary);
-      border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-      background: #2563eb;
-    }
-    
-    /* Tooltip para botones */
-    .tooltip {
-      position: relative;
-      display: inline-block;
-    }
-    
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 120px;
-      background-color: var(--dark);
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      font-size: 0.875rem;
-    }
-    
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
-    }
-    .faq-item {
-      background: #f8fafc;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-      border-left: 4px solid var(--accent);
-    }
-
-    .faq-item h3 {
-      color: var(--primary);
-      margin-bottom: 0.5rem;
-    }
-
-    .faq-item p {
-      color: var(--gray);
-    }
-    ol, ul {
-      margin: 1rem 0;
-      padding-left: 2rem;
-    }
-
-    li {
-      margin-bottom: 0.5rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especies Endémicas de México</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/256/2745/2745842.png" type="image/png">
+    <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-  <div class="progress-container" id="progressContainer">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-  <header>
-    <div class="particles" id="particles"></div>
-    <div class="container">
-      <div class="header-content">
-        <div class="header-logos">
-          <img src="https://lh5.googleusercontent.com/proxy/_2kgdsApltGVl7jrwcThtNtNTpLgw0dlzEjZ2e5IpAynQ9W_xcMY9Ka_MvcAEy-gN80Yn33dTIn7TcUN" alt="Logo UAM" class="uam-logo floating">
-          <img src="https://cdn-icons-png.freepik.com/256/16389/16389657.png?semt=ais_hybrid" alt="Logo UAMpanas" class="app-logo floating" style="animation-delay: 0.5s;">
+    <header>
+        <div class="logo">
+            <img src="https://cdn-icons-png.flaticon.com/256/2745/2745842.png" alt="Logo Especies Endémicas de México">
+            <h1>Especies Endémicas de México</h1>
         </div>
-        <div class="header-text">
-          <h1>🛡️ Antivirus UAMpanas</h1>
-          <p class="lead">Protección avanzada para tus dispositivos desarrollada por y para la comunidad universitaria</p>
-          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-            <a href="#descargar" class="btn pulse tooltip">
-              Descargar Ahora
-              <span class="tooltiptext">Disponible para Android y PC</span>
-            </a>
-            <a href="#caracteristicas" class="btn btn-secondary tooltip">
-              Ver Características
-              <span class="tooltiptext">Descubre todas las funciones</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-    <section id="caracteristicas" class="card">
-      <h2>Características Principales</h2>
-      <p class="subtitle">Nuestro antivirus ofrece una protección completa con las últimas tecnologías en seguridad</p>
-      <div class="features">
-        <div class="feature-item">
-          <img src="https://cdn-icons-png.flaticon.com/512/2452/2452056.png" alt="Protección en tiempo real">
-          <h3>🔒 Protección en Tiempo Real</h3>
-          <p>Escaneo continuo contra malware, spyware y ransomware con detección avanzada de amenazas.</p>
-        </div>
-        <div class="feature-item">
-          <img src="https://cdn-icons-png.flaticon.com/512/2452/2452039.png" alt="Cortafuegos">
-          <h3>🛡️ Cortafuegos Integrado</h3>
-          <p>Bloquea conexiones sospechosas y protege tu privacidad con filtrado inteligente de red.</p>
-        </div>
-        <div class="feature-item">
-          <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" alt="Optimización móvil">
-          <h3>⚙️ Optimizado para Dispositivos</h3>
-          <p>Bajo consumo de recursos sin comprometer la seguridad, tanto en móviles como en PC.</p>
-        </div>
-        <div class="feature-item">
-          <img src="https://cdn-icons-png.flaticon.com/512/64/64673.png" alt="Escaneo rápido">
-          <h3>⚡ Escaneo Ultra Rápido</h3>
-          <p>Analiza tu dispositivo en minutos con nuestra tecnología de escaneo inteligente.</p>
-        </div>
-        <div class="feature-item">
-          <img src="https://cdn-icons-png.flaticon.com/512/3064/3064155.png" alt="Protección web">
-          <h3>🌐 Protección Web</h3>
-          <p>Bloquea sitios peligrosos, phishing y enlaces maliciosos en tiempo real.</p>
-        </div>
-        <div class="feature-item">
-          <img src="https://cdn-icons-png.flaticon.com/512/3064/3064173.png" alt="Privacidad">
-          <h3>👁️ Protección de Privacidad</h3>
-          <p>Identifica y bloquea apps que acceden a datos sensibles sin tu permiso.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="descargar" class="card">
-      <h2>Descarga Gratuita</h2>
-      <p class="subtitle">Disponible para Android y PC. Protege tus dispositivos hoy mismo.</p>
-      
-      <div class="download-platforms">
-        <div class="platform-card">
-          <span class="platform-badge">Versión Android</span>
-          <img src="https://cdn-icons-png.flaticon.com/512/226/226770.png" alt="Android" class="platform-icon">
-          <h3 class="platform-title">Para Dispositivos Android</h3>
-          <p class="platform-description">Protección avanzada diseñada específicamente para dispositivos móviles con Android.</p>
-          <a href="https://play.google.com/store/apps/details?id=com.uampanas.antivirus" class="btn" target="_blank" rel="noopener noreferrer">
-            Descargar para Android
-          </a>
-          <div class="platform-requirements">
-            <p class="requirements-title">Requisitos del sistema:</p>
-            <ul class="requirements-list">
-              <li>Android 8.0 o superior</li>
-              <li>1 GB de RAM mínimo</li>
-              <li>50 MB de espacio disponible</li>
-              <li>Conexión a Internet para actualizaciones</li>
+        <nav>
+            <ul>
+                <li><a href="#" class="nav-link" data-page="home">Inicio</a></li>
+                <li><a href="#" class="nav-link" data-page="species">Especies</a></li>
+                <li><a href="#" class="nav-link" data-page="stats">Estadísticas</a></li>
+                <li><a href="#" class="nav-link" data-page="contact">Contacto</a></li>
+                <li><a href="#" class="nav-link" data-page="help">Ayuda</a></li>
             </ul>
-          </div>
+        </nav>
+        <div class="auth-buttons" id="authButtons">
+            <button class="login-btn" id="loginBtn">Iniciar sesión</button>
+            <button class="register-btn" id="registerBtn">Registrarse</button>
+            <button class="help-btn" id="helpBtn">Ayuda</button>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <!-- Home Page -->
+        <div id="homePage">
+            <div class="search-container">
+                <h2>Buscar especies endémicas</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Buscar por nombre de especie...">
+                    <button id="searchBtn">Buscar</button>
+                </div>
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="category">Categoría</label>
+                        <select id="category">
+                            <option value="">Todas las categorías</option>
+                            <option value="flora">Flora</option>
+                            <option value="fauna">Fauna</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="region">Región</label>
+                        <select id="region">
+                            <option value="">Todas las regiones</option>
+                            <option value="norte">Norte</option>
+                            <option value="centro">Centro</option>
+                            <option value="sur">Sur</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="status">Estado de conservación</label>
+                        <select id="status">
+                            <option value="">Todos los estados</option>
+                            <option value="en_peligro">En peligro</option>
+                            <option value="amenazada">Amenazada</option>
+                            <option value="vulnerable">Vulnerable</option>
+                            <option value="estable">Estable</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <h2>Especies destacadas</h2>
+            <div class="species-grid" id="speciesGrid">
+                <!-- Species cards will be dynamically inserted here -->
+            </div>
         </div>
         
-        <div class="platform-card">
-          <span class="platform-badge">Versión Windows</span>
-          <img src="https://images.icon-icons.com/2235/PNG/512/windows_os_logo_icon_134674.png" alt="Windows" class="platform-icon">
-          <h3 class="platform-title">Para Computadoras con Windows</h3>
-          <p class="platform-description">Protección completa para tu PC con interfaz optimizada para escritorio.</p>
-          <a href="#" class="btn" id="downloadPcBtn">
-            Descargar para PC
-          </a>
-          <div class="platform-requirements">
-            <p class="requirements-title">Requisitos del sistema:</p>
-            <ul class="requirements-list">
-              <li>Windows 10 o superior (64-bit)</li>
-              <li>2 GB de RAM mínimo</li>
-              <li>100 MB de espacio disponible</li>
-              <li>Conexión a Internet para actualizaciones</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      
-      <div style="margin-top: 3rem; background: #f8fafc; padding: 2rem; border-radius: 12px;">
-        <h3 style="margin-bottom: 1.5rem; text-align: center;">¿Por qué elegir nuestro antivirus?</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-          <div style="display: flex; align-items: flex-start; gap: 1rem;">
-            <div style="background: var(--accent); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</div>
-            <div>
-              <h4 style="margin-bottom: 0.5rem;">Desarrollo Universitario</h4>
-              <p style="color: var(--gray);">Creado por expertos en seguridad de la UAM para la comunidad universitaria.</p>
+        <!-- Species Page (Listado completo) -->
+        <div id="speciesPage" style="display: none;">
+            <h2>Todas las especies endémicas</h2>
+            <div class="species-grid" id="fullSpeciesGrid">
+                <!-- Full species list will be inserted here -->
             </div>
-          </div>
-          <div style="display: flex; align-items: flex-start; gap: 1rem;">
-            <div style="background: var(--accent); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</div>
-            <div>
-              <h4 style="margin-bottom: 0.5rem;">Sin Costos Ocultos</h4>
-              <p style="color: var(--gray);">Acceso completo sin suscripciones ni pagos adicionales.</p>
+        </div>
+        
+        <!-- Species Detail Page -->
+        <div class="species-detail" id="speciesDetailPage">
+            <a href="#" class="back-btn" id="backToListBtn">← Volver al listado</a>
+            
+            <div class="species-detail-header">
+                <div class="species-detail-image">
+                    <img id="detailImage" src="" alt="Imagen de la especie">
+                </div>
+                <div class="species-detail-info">
+                    <h2 id="detailName">Nombre de la especie</h2>
+                    <div class="species-detail-meta">
+                        <span class="meta-item" id="detailCategory">Categoría</span>
+                        <span class="meta-item" id="detailStatus">Estado</span>
+                        <span class="meta-item" id="detailRegion">Región</span>
+                    </div>
+                    <p id="detailScientificName"><strong>Nombre científico:</strong> <span id="scientificNameValue"></span></p>
+                    <p id="detailSource"><strong>Fuente:</strong> <span id="sourceValue"></span></p>
+                    
+                    <h3>Descripción</h3>
+                    <p id="detailDescription">Descripción detallada de la especie...</p>
+                    
+                    <h3>Distribución</h3>
+                    <p id="detailDistribution">Información sobre la distribución geográfica...</p>
+                    
+                    <h3>Conservación</h3>
+                    <p id="detailConservation">Información sobre el estado de conservación...</p>
+                </div>
             </div>
-          </div>
-          <div style="display: flex; align-items: flex-start; gap: 1rem;">
-            <div style="background: var(--accent); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</div>
-            <div>
-              <h4 style="margin-bottom: 0.5rem;">Actualizaciones Constantes</h4>
-              <p style="color: var(--gray);">Base de datos de virus actualizada regularmente.</p>
+            
+            <!-- Admin controls (visible only for admin) -->
+            <div class="admin-controls" id="detailAdminControls">
+                <button class="edit-btn" id="editSpeciesBtn">✏️</button>
+                <button class="delete-btn" id="deleteSpeciesBtn">🗑️</button>
             </div>
-          </div>
-          <div style="display: flex; align-items: flex-start; gap: 1rem;">
-            <div style="background: var(--accent); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</div>
-            <div>
-              <h4 style="margin-bottom: 0.5rem;">Soporte Especializado</h4>
-              <p style="color: var(--gray);">Equipo técnico disponible para resolver tus dudas.</p>
+            
+            <!-- Comments Section -->
+            <div class="comments-section">
+                <h3>Comentarios</h3>
+                <div class="comments-list" id="commentsList">
+                    <!-- Comments will be dynamically inserted here -->
+                </div>
+                
+                <div id="commentFormContainer">
+                    <h4>Agregar comentario</h4>
+                    <form id="commentForm">
+                        <textarea id="commentText" placeholder="Escribe tu comentario..." required></textarea>
+                        <button type="submit" class="submit-btn">Publicar comentario</button>
+                    </form>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </section>
-
-    <section id="contacto" class="card">
-      <h2>Contáctanos</h2>
-      <p class="subtitle">¿Tienes preguntas, sugerencias o necesitas asistencia técnica? Estamos aquí para ayudarte.</p>
-
-      <div id="alertSuccess" class="alert alert-success"></div>
-      <div id="alertError" class="alert alert-error"></div>
-
-      <form action="https://formsubmit.co/uampanas@gmail.com" method="POST" id="contactForm">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_subject" value="Nuevo mensaje desde UAMpanas">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="#contacto">
-        <input type="text" name="_honey" style="display:none">
-
-        <div class="form-group">
-          <label for="nombre">Nombre completo</label>
-          <input type="text" id="nombre" name="nombre" required minlength="3" placeholder="Ingresa tu nombre completo">
+        
+        <!-- Stats Page -->
+        <div class="stats-container" id="statsPage">
+            <h2>Estadísticas de especies</h2>
+            
+            <div class="chart-container">
+                <div class="chart-placeholder">
+                    Gráfica de distribución por tipo de especie
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-placeholder">
+                    Gráfica de distribución por estado de conservación
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-placeholder">
+                    Gráfica de distribución por región
+                </div>
+            </div>
+            
+            <a href="#" class="download-btn" id="downloadStatsBtn">Descargar estadísticas (CSV)</a>
         </div>
-
-        <div class="form-group">
-          <label for="email">Correo electrónico</label>
-          <input type="email" id="email" name="email" required placeholder="correo@cua.uam.mx">
+        
+        <!-- Contact Page -->
+        <div class="contact-container" id="contactPage">
+            <h2>Contacto y ayuda</h2>
+            
+            <div class="faq-section">
+                <h3>Preguntas frecuentes</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question">¿Qué es una especie endémica?</div>
+                    <p>Una especie endémica es aquella que solo habita en una región geográfica específica y no se encuentra de forma natural en ninguna otra parte del mundo.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">¿Cómo puedo contribuir a la conservación?</div>
+                    <p>Puedes contribuir reportando avistamientos, participando en programas de conservación o donando a organizaciones dedicadas a la protección de estas especies.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">¿Qué hago si encuentro una especie en peligro?</div>
+                    <p>Reporta el avistamiento a las autoridades ambientales locales y evita interactuar con la especie para no alterar su comportamiento natural.</p>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>Formulario de contacto</h3>
+                <form id="contactForm" action="https://formsubmit.co/vdiegojovani@gmail.com" method="POST">
+                    <input type="hidden" name="_subject" value="Nuevo mensaje de contacto - Especies Endémicas">
+                    <input type="hidden" name="_next" value="https://ejemplo.com/gracias.html">
+                    <div class="form-group">
+                        <label for="contactName">Nombre</label>
+                        <input type="text" id="contactName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Correo electrónico</label>
+                        <input type="email" id="contactEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Mensaje</label>
+                        <textarea id="contactMessage" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar mensaje</button>
+                    <div class="success-message" id="contactSuccess">¡Mensaje enviado con éxito!</div>
+                </form>
+            </div>
         </div>
-
-        <div class="form-group">
-          <label for="asunto">Asunto</label>
-          <select id="asunto" name="asunto" required>
-            <option value="" disabled selected>Selecciona un asunto</option>
-            <option value="Consulta general">Consulta general</option>
-            <option value="Soporte técnico">Soporte técnico</option>
-            <option value="Sugerencia">Sugerencia</option>
-            <option value="Reporte de error">Reporte de error</option>
-            <option value="Colaboración">Colaboración</option>
-          </select>
+        
+        <!-- Help Page -->
+        <div class="contact-container" id="helpPage">
+            <h2>Centro de ayuda</h2>
+            
+            <div class="faq-section">
+                <h3>Guías de uso</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question">¿Cómo buscar especies?</div>
+                    <p>Utiliza el campo de búsqueda en la página principal para buscar por nombre de especie. También puedes usar los filtros para refinar tu búsqueda.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">¿Cómo registrarme en el sistema?</div>
+                    <p>Haz clic en el botón "Registrarse" en la esquina superior derecha y completa el formulario con tus datos.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">¿Cómo sugerir una nueva especie?</div>
+                    <p>Una vez registrado, ve a la página de contacto y utiliza el formulario para enviar tu sugerencia.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">¿Cómo activar el modo oscuro?</div>
+                    <p>Haz clic en el botón de luna (🌙) en la esquina inferior derecha de la pantalla para alternar entre modo claro y oscuro.</p>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>¿Necesitas más ayuda?</h3>
+                <p>Si no encontraste respuesta a tu pregunta, contáctanos usando el formulario a continuación:</p>
+                <form id="helpForm" action="https://formsubmit.co/vdiegojovani@gmail.com" method="POST">
+                    <input type="hidden" name="_subject" value="Solicitud de ayuda - Especies Endémicas">
+                    <input type="hidden" name="_next" value="https://ejemplo.com/gracias.html">
+                    <div class="form-group">
+                        <label for="helpName">Nombre</label>
+                        <input type="text" id="helpName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="helpEmail">Correo electrónico</label>
+                        <input type="email" id="helpEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="helpMessage">Mensaje</label>
+                        <textarea id="helpMessage" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar solicitud</button>
+                    <div class="success-message" id="helpSuccess">¡Solicitud enviada con éxito!</div>
+                </form>
+            </div>
         </div>
-
-        <div class="form-group">
-          <label for="mensaje">Tu mensaje</label>
-          <textarea id="mensaje" name="mensaje" rows="6" required minlength="10" placeholder="Describe tu consulta o sugerencia en detalle..."></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-secondary" id="submitBtn" style="width: 100%; padding: 1.25rem;">
-          <span id="submitText">Enviar Mensaje</span>
-          <span id="submitSpinner" style="display: none; margin-left: 0.5rem;">⌛</span>
-        </button>
-      </form>
-    </section>
-    <div id="dynamic-content"></div>
-  </main>
-
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logos">
-        <img src="https://lh5.googleusercontent.com/proxy/_2kgdsApltGVl7jrwcThtNtNTpLgw0dlzEjZ2e5IpAynQ9W_xcMY9Ka_MvcAEy-gN80Yn33dTIn7TcUN" alt="Logo UAM" class="footer-logo">
-        <img src="https://cdn-icons-png.freepik.com/256/16389/16389657.png?semt=ais_hybrid" alt="Logo UAMpanas" class="footer-logo">
-      </div>
-      
-      <div class="footer-links">
-        <a href="#caracteristicas">Características</a>
-        <a href="#descargar">Descargar</a>
-        <a href="#contacto">Contacto</a>
-        <a href="#" id="faq-link">Preguntas Frecuentes</a>
-        <a href="#" id="terms-link">Términos de Servicio</a>
-        <a href="#" id="privacy-link">Política de Privacidad</a>
-      </div>
-      
-      <p style="margin-bottom: 1.5rem;">© 2025 Antivirus UAMpanas. Proyecto desarrollado por la comunidad universitaria.</p>
-      
-      <div style="display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem;">
-        <a href="https://wa.me/525512345678" style="color: white; font-size: 1.5rem;">📱</a>
-        <a href="mailto:uampanas@gmail.com" style="color: white; font-size: 1.5rem;">📧</a>
-        <a href="https://t.me/+j-i2Qyx5OOJiYjdh" style="color: white; font-size: 1.5rem;">💬</a>
-      </div>
+    </main>
+    
+    <footer>
+        <p>© 2025 Especies Endémicas de México. Todos los derechos reservados.</p>
+        <p>Fuentes: CONABIO, SEMARNAT, UICN</p>
+    </footer>
+    
+    <div class="utility-buttons">
+        <button class="utility-btn" id="darkModeBtn">🌙</button>
+        <button class="utility-btn" id="languageBtn">EN</button>
+        <button class="utility-btn" id="accessibilityBtn">♿</button>
     </div>
-  </footer>
-
-  <script>
-    function updateProgressBar() {
-      const progressBar = document.getElementById('progressBar');
-      const progressContainer = document.getElementById('progressContainer');
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      
-      const scrollPercentage = (scrollPosition / (documentHeight - windowHeight)) * 100;
-      progressBar.style.width = scrollPercentage + '%';
-      
-      if (scrollPosition > 50) {
-        progressContainer.classList.add('scrolled');
-      } else {
-        progressContainer.classList.remove('scrolled');
-      }
-    }
     
-    // Animación de partículas
-    function createParticles() {
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = Math.floor(window.innerWidth / 20);
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        const size = Math.random() * 5 + 2;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        
-        const duration = Math.random() * 15 + 10;
-        particle.style.animationDuration = `${duration}s`;
-        particle.style.animationDelay = `${Math.random() * 5}s`;
-        
-        particlesContainer.appendChild(particle);
-      }
-    }
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Iniciar sesión</h2>
+                <button class="close-btn" id="closeLoginModal">&times;</button>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Correo electrónico</label>
+                    <input type="email" id="loginEmail" required>
+                    <div class="error-message" id="loginEmailError">Por favor ingresa un correo válido</div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña</label>
+                    <input type="password" id="loginPassword" required>
+                    <div class="error-message" id="loginPasswordError">La contraseña es requerida</div>
+                </div>
+                <a href="#" id="forgotPassword">¿Olvidaste tu contraseña?</a>
+                <button type="submit" class="submit-btn">Iniciar sesión</button>
+                <div class="error-message" id="loginError">Credenciales incorrectas</div>
+            </form>
+        </div>
+    </div>
     
-    // Efecto de onda
-    function createWaveEffect(button, e) {
-      const wave = document.createElement('span');
-      wave.classList.add('wave');
-      
-      const rect = button.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      wave.style.left = `${x}px`;
-      wave.style.top = `${y}px`;
-      
-      button.appendChild(wave);
-      
-      setTimeout(() => {
-        wave.remove();
-      }, 800);
-    }
-    function animateOnScroll() {
-      const cards = document.querySelectorAll('.card');
-      const features = document.querySelectorAll('.feature-item');
-      const platforms = document.querySelectorAll('.platform-card');
-      
-      cards.forEach((card, index) => {
-        const cardPosition = card.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.2;
-        
-        if (cardPosition < screenPosition) {
-          setTimeout(() => {
-            card.classList.add('animated');
-          }, index * 150);
-        }
-      });
-      
-      features.forEach((feature, index) => {
-        const featurePosition = feature.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.2;
-        
-        if (featurePosition < screenPosition) {
-          setTimeout(() => {
-            feature.classList.add('animated');
-          }, index * 100);
-        }
-      });
-      
-      platforms.forEach((platform, index) => {
-        const platformPosition = platform.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.2;
-        
-        if (platformPosition < screenPosition) {
-          setTimeout(() => {
-            platform.style.opacity = '1';
-            platform.style.transform = 'translateY(0)';
-          }, index * 150);
-        }
-      });
-    }
-    function initTooltips() {
-      const tooltips = document.querySelectorAll('.tooltip');
-      
-      tooltips.forEach(tooltip => {
-        tooltip.addEventListener('mouseenter', function() {
-          const tooltipText = this.querySelector('.tooltiptext');
-          tooltipText.style.visibility = 'visible';
-          tooltipText.style.opacity = '1';
-        });
-        
-        tooltip.addEventListener('mouseleave', function() {
-          const tooltipText = this.querySelector('.tooltiptext');
-          tooltipText.style.visibility = 'hidden';
-          tooltipText.style.opacity = '0';
-        });
-      });
-    }
-    function showDynamicContent(content) {
-      const main = document.querySelector('main.container');
-      const dynamicContent = document.getElementById('dynamic-content');
-      document.querySelectorAll('main.container > section').forEach(section => {
-        section.style.display = 'none';
-      });
-      dynamicContent.innerHTML = content;
-      dynamicContent.style.display = 'block';
-      const backButton = document.createElement('button');
-      backButton.textContent = 'Volver al Inicio';
-      backButton.className = 'btn btn-secondary';
-      backButton.style.marginTop = '2rem';
-      backButton.style.marginBottom = '2rem';
-      backButton.style.display = 'block';
-      backButton.style.marginLeft = 'auto';
-      backButton.style.marginRight = 'auto';
-      
-      backButton.addEventListener('click', function() {
-        document.querySelectorAll('main.container > section').forEach(section => {
-          section.style.display = 'block';
-        });
-        dynamicContent.style.display = 'none';
-        dynamicContent.innerHTML = '';
-        window.scrollTo({top: 0, behavior: 'smooth'});
-      });
-      
-      dynamicContent.appendChild(backButton);
-    }
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Registrarse</h2>
+                <button class="close-btn" id="closeRegisterModal">&times;</button>
+            </div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Nombre completo</label>
+                    <input type="text" id="registerName" required>
+                    <div class="error-message" id="registerNameError">Por favor ingresa tu nombre</div>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Correo electrónico (@cua.uam.mx)</label>
+                    <input type="email" id="registerEmail" required>
+                    <div class="error-message" id="registerEmailError">Por favor ingresa un correo institucional válido (@cua.uam.mx)</div>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Contraseña (mínimo 8 caracteres)</label>
+                    <input type="password" id="registerPassword" required minlength="8">
+                    <div class="error-message" id="registerPasswordError">La contraseña debe tener al menos 8 caracteres</div>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirmar contraseña</label>
+                    <input type="password" id="registerConfirmPassword" required minlength="8">
+                    <div class="error-message" id="registerConfirmError">Las contraseñas no coinciden</div>
+                </div>
+                <button type="submit" class="submit-btn">Registrarse</button>
+                <div class="success-message" id="registerSuccess">¡Registro exitoso! Ahora puedes iniciar sesión.</div>
+            </form>
+        </div>
+    </div>
     
-    // Inicialización
-    document.addEventListener('DOMContentLoaded', function() {
-      createParticles();
-      animateOnScroll();
-      initTooltips();
-      
-      // Efecto en botones
-      const buttons = document.querySelectorAll('.btn');
-      buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-          createWaveEffect(this, e);
-        });
-      });
-      
-      // Botón de descarga PC
-      const downloadPcBtn = document.getElementById('downloadPcBtn');
-      if (downloadPcBtn) {
-        downloadPcBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          showAlert('La versión para PC estará disponible próximamente. ¡Gracias por tu interés!', 'success');
-        });
-      }
-      
-      // Formulario
-      const submitBtn = document.getElementById('submitBtn');
-      if (submitBtn) {
-        submitBtn.addEventListener('click', function() {
-          const spinner = document.getElementById('submitSpinner');
-          const text = document.getElementById('submitText');
-          
-          text.textContent = 'Enviando...';
-          spinner.style.display = 'inline-block';
-        });
-      }
-      document.getElementById('faq-link').addEventListener('click', function(e) {
-        e.preventDefault();
-        showDynamicContent(`
-          <section class="card">
-            <h2>Preguntas Frecuentes</h2>
-            <div class="faq-item">
-              <h3>¿Cómo instalo el antivirus?</h3>
-              <p>Descarga la aplicación desde la sección correspondiente a tu dispositivo y sigue las instrucciones del instalador.</p>
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgotPasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Recuperar contraseña</h2>
+                <button class="close-btn" id="closeForgotPasswordModal">&times;</button>
             </div>
-            <div class="faq-item">
-              <h3>¿Es realmente gratuito?</h3>
-              <p>Sí, nuestro antivirus es completamente gratuito para todos los miembros de la comunidad UAM.</p>
-            </div>
-            <div class="faq-item">
-              <h3>¿Qué hago si detecta un falso positivo?</h3>
-              <p>Puedes reportarlo a través de nuestro formulario de contacto y lo revisaremos lo antes posible.</p>
-            </div>
-            <div class="faq-item">
-              <h3>¿Cómo actualizo el antivirus?</h3>
-              <p>Las actualizaciones se descargan automáticamente cuando estás conectado a internet.</p>
-            </div>
-            <div class="faq-item">
-              <h3>¿Dónde puedo obtener ayuda técnica?</h3>
-              <p>Puedes contactar a nuestro equipo de soporte a través de la sección de contacto o usando los enlaces en el pie de página.</p>
-            </div>
-          </section>
-        `);
-        window.scrollTo({top: 0, behavior: 'smooth'});
-      });
-      
-      document.getElementById('terms-link').addEventListener('click', function(e) {
-        e.preventDefault();
-        showDynamicContent(`
-          <section class="card">
-            <h2>Términos de Servicio</h2>
-            <p><strong>Última actualización:</strong> 1 de enero de 2025</p>
-            
-            <div class="faq-item">
-              <h3>1. Aceptación de los Términos</h3>
-              <p>Al utilizar el Antivirus UAMpanas, usted acepta cumplir con estos términos de servicio.</p>
-            </div>
-            
-            <div class="faq-item">
-              <h3>2. Uso del Software</h3>
-              <p>El software está destinado exclusivamente para miembros de la comunidad UAM. No está permitida su redistribución.</p>
-            </div>
-            
-            <div class="faq-item">
-              <h3>3. Limitación de Responsabilidad</h3>
-              <p>El software se proporciona "tal cual" sin garantías de ningún tipo. No nos hacemos responsables por daños derivados de su uso.</p>
-            </div>
-            
-            <div class="faq-item">
-              <h3>4. Modificaciones</h3>
-              <p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación.</p>
-            </div>
-          </section>
-        `);
-        window.scrollTo({top: 0, behavior: 'smooth'});
-      });
-      
-      document.getElementById('privacy-link').addEventListener('click', function(e) {
-        e.preventDefault();
-        showDynamicContent(`
-          <section class="card">
-            <h2>Política de Privacidad</h2>
-            <p><strong>Última actualización:</strong> 1 de enero de 2025</p>
-            
-            <div class="faq-item">
-              <h3>1. Información que Recopilamos</h3>
-              <p>Recopilamos información mínima necesaria para el funcionamiento del antivirus, incluyendo datos de detecciones y actualizaciones.</p>
-            </div>
-            
-            <div class="faq-item">
-              <h3>2. Uso de la Información</h3>
-              <p>La información se utiliza exclusivamente para mejorar el servicio y proporcionar protección contra amenazas.</p>
-            </div>
-            
-            <div class="faq-item">
-              <h3>3. Protección de Datos</h3>
-              <p>Implementamos medidas de seguridad para proteger sus datos contra accesos no autorizados.</p>
-            </div>
-            
-            <div class="faq-item">
-              <h3>4. Tus Derechos</h3>
-              <p>Tienes derecho a acceder, corregir o solicitar la eliminación de tus datos personales en cualquier momento.</p>
-            </div>
-            
-            <div class="faq-item">
-              <h3>5. Contacto</h3>
-              <p>Para preguntas sobre esta política, contáctanos a través del formulario disponible en el sitio.</p>
-            </div>
-          </section>
-        `);
-        window.scrollTo({top: 0, behavior: 'smooth'});
-      });
-    });
+            <form id="forgotPasswordForm">
+                <div class="form-group">
+                    <label for="forgotEmail">Correo electrónico</label>
+                    <input type="email" id="forgotEmail" required>
+                    <div class="error-message" id="forgotEmailError">Por favor ingresa un correo válido</div>
+                </div>
+                <p>Te enviaremos un enlace para restablecer tu contraseña.</p>
+                <button type="submit" class="submit-btn">Enviar enlace</button>
+                <div class="success-message" id="forgotSuccess">¡Se ha enviado un enlace de recuperación a tu correo!</div>
+            </form>
+        </div>
+    </div>
     
-    window.addEventListener('scroll', function() {
-      updateProgressBar();
-      animateOnScroll();
-    });
+    <!-- Add Species Modal (Admin only) -->
+    <div class="modal" id="addSpeciesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Agregar nueva especie</h2>
+                <button class="close-btn" id="closeAddSpeciesModal">&times;</button>
+            </div>
+            <form id="addSpeciesForm">
+                <div class="form-group">
+                    <label for="speciesName">Nombre común</label>
+                    <input type="text" id="speciesName" required>
+                </div>
+                <div class="form-group">
+                    <label for="speciesScientific">Nombre científico</label>
+                    <input type="text" id="speciesScientific" required>
+                </div>
+                <div class="form-group">
+                    <label for="speciesCategory">Categoría</label>
+                    <select id="speciesCategory" required>
+                        <option value="">Selecciona una categoría</option>
+                        <option value="flora">Flora</option>
+                        <option value="fauna">Fauna</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="speciesStatus">Estado de conservación</label>
+                    <select id="speciesStatus" required>
+                        <option value="">Selecciona un estado</option>
+                        <option value="en_peligro">En peligro</option>
+                        <option value="amenazada">Amenazada</option>
+                        <option value="vulnerable">Vulnerable</option>
+                        <option value="estable">Estable</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="speciesRegion">Región</label>
+                    <select id="speciesRegion" required>
+                        <option value="">Selecciona una región</option>
+                        <option value="norte">Norte</option>
+                        <option value="centro">Centro</option>
+                        <option value="sur">Sur</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="speciesImage">Imagen (URL)</label>
+                    <input type="url" id="speciesImage" required>
+                </div>
+                <div class="form-group">
+                    <label for="speciesSource">Fuente</label>
+                    <input type="text" id="speciesSource" required>
+                </div>
+                <div class="form-group">
+                    <label for="speciesDescription">Descripción</label>
+                    <textarea id="speciesDescription" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="speciesDistribution">Distribución</label>
+                    <textarea id="speciesDistribution" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="speciesConservation">Información de conservación</label>
+                    <textarea id="speciesConservation" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Guardar especie</button>
+                <div class="success-message" id="addSpeciesSuccess">¡Especie agregada correctamente!</div>
+            </form>
+        </div>
+    </div>
     
-    // Validación de formulario
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      const nombre = document.getElementById('nombre').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const asunto = document.getElementById('asunto').value;
-      const mensaje = document.getElementById('mensaje').value.trim();
-      const submitBtn = document.getElementById('submitBtn');
-
-      // Validaciones
-      let isValid = true;
-      
-      if(nombre.length < 3) {
-        showAlert('Por favor ingresa tu nombre completo', 'error');
-        isValid = false;
-      }
-
-      if(!validateEmail(email)) {
-        showAlert('Ingresa un correo electrónico válido', 'error');
-        isValid = false;
-      } else if (!email.endsWith('@cua.uam.mx')) {
-        showAlert('Solo se permiten correos con dominio @cua.uam.mx', 'error');
-        isValid = false;
-      }
-
-      if(!asunto) {
-        showAlert('Por favor selecciona un asunto', 'error');
-        isValid = false;
-      }
-
-      if(mensaje.length < 10) {
-        showAlert('El mensaje debe tener al menos 10 caracteres', 'error');
-        isValid = false;
-      }
-
-      if(!isValid) {
-        e.preventDefault();
-        return;
-      }
-
-      showAlert('Enviando tu mensaje...', 'success');
-    });
-
-    function showAlert(message, type) {
-      const alertSuccess = document.getElementById('alertSuccess');
-      const alertError = document.getElementById('alertError');
-
-      if(type === 'success') {
-        alertSuccess.textContent = message;
-        alertSuccess.style.display = 'block';
-        alertError.style.display = 'none';
-        
-        setTimeout(() => {
-          alertSuccess.style.display = 'none';
-        }, 5000);
-      } else {
-        alertError.textContent = message;
-        alertError.style.display = 'block';
-        alertSuccess.style.display = 'none';
-      }
-    }
-
-    function validateEmail(email) {
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return re.test(email);
-    }
-
-    // Manejo de respuesta del formulario
-    window.addEventListener('DOMContentLoaded', function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      
-      if(urlParams.has('success')) {
-        showAlert('¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto.', 'success');
-        document.getElementById('contactForm').reset();
-        
-        // Restablecer botón de enviar
-        const spinner = document.getElementById('submitSpinner');
-        const text = document.getElementById('submitText');
-        spinner.style.display = 'none';
-        text.textContent = 'Enviar Mensaje';
-      }
-      
-      if(urlParams.has('error')) {
-        showAlert('Error al enviar el mensaje. Por favor intenta nuevamente más tarde.', 'error');
-        
-        // Restablecer botón de enviar
-        const spinner = document.getElementById('submitSpinner');
-        const text = document.getElementById('submitText');
-        spinner.style.display = 'none';
-        text.textContent = 'Enviar Mensaje';
-      }
-    });
-  </script>
+    <!-- Edit Species Modal (Admin only) -->
+    <div class="modal" id="editSpeciesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar especie</h2>
+                <button class="close-btn" id="closeEditSpeciesModal">&times;</button>
+            </div>
+            <form id="editSpeciesForm">
+                <input type="hidden" id="editSpeciesId">
+                <div class="form-group">
+                    <label for="editSpeciesName">Nombre común</label>
+                    <input type="text" id="editSpeciesName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editSpeciesScientific">Nombre científico</label>
+                    <input type="text" id="editSpeciesScientific" required>
+                </div>
+                <div class="form-group">
+                    <label for="editSpeciesCategory">Categoría</label>
+                    <select id="editSpeciesCategory" required>
+                        <option value="">Selecciona una categoría</option>
+                        <option value="flora">Flora</option>
+                        <option value="fauna">Fauna</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editSpeciesStatus">Estado de conservación</label>
+                    <select id="editSpeciesStatus" required>
+                        <option value="">Selecciona un estado</option>
+                        <option value="en_peligro">En peligro</option>
+                        <option value="amenazada">Amenazada</option>
+                        <option value="vulnerable">Vulnerable</option>
+                        <option value="estable">Estable</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editSpeciesRegion">Región</label>
+                    <select id="editSpeciesRegion" required>
+                        <option value="">Selecciona una región</option>
+                        <option value="norte">Norte</option>
+                        <option value="centro">Centro</option>
+                        <option value="sur">Sur</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editSpeciesImage">Imagen (URL)</label>
+                    <input type="url" id="editSpeciesImage" required>
+                </div>
+                <div class="form-group">
+                    <label for="editSpeciesSource">Fuente</label>
+                    <input type="text" id="editSpeciesSource" required>
+                </div>
+                <div class="form-group">
+                    <label for="editSpeciesDescription">Descripción</label>
+                    <textarea id="editSpeciesDescription" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editSpeciesDistribution">Distribución</label>
+                    <textarea id="editSpeciesDistribution" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editSpeciesConservation">Información de conservación</label>
+                    <textarea id="editSpeciesConservation" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Guardar cambios</button>
+                <div class="success-message" id="editSpeciesSuccess">¡Cambios guardados correctamente!</div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteConfirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirmar eliminación</h2>
+                <button class="close-btn" id="closeDeleteConfirmModal">&times;</button>
+            </div>
+            <p>¿Estás seguro que deseas eliminar esta especie? Esta acción no se puede deshacer.</p>
+            <input type="hidden" id="speciesToDeleteId">
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                <button class="submit-btn" id="confirmDeleteBtn" style="background-color: var(--error-color);">Sí, eliminar</button>
+                <button class="submit-btn" id="cancelDeleteBtn" style="background-color: #757575;">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="codigo.js"></script>
 </body>
 </html>
