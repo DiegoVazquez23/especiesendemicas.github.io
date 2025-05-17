@@ -54,7 +54,9 @@ header {
 }
 
 .logo img {
-    height: 50px;
+    height: auto;
+    width: 80px;
+    max-height: 100px;
     margin-right: 10px;
 }
 
