@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Especies Endémicas de México</title>
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/256/2745/2745842.png" type="image/png">
+    <link rel="icon" href="https://i.postimg.cc/Gt0tXcsR/Logo-EE-version-final.png" type="image/png">
     <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
     <header>
         <div class="logo">
-            <img src="https://cdn-icons-png.flaticon.com/256/2745/2745842.png" alt="Logo Especies Endémicas de México">
-            <h1>Especies Endémicas de México</h1>
+            <img src="https://i.postimg.cc/Gt0tXcsR/Logo-EE-version-final.png" alt="Logo Especies Endémicas de México">
+            <h1 id="mainTitle">Especies Endémicas de México</h1>
         </div>
         <nav>
             <ul>
@@ -25,7 +25,7 @@
         <div class="auth-buttons" id="authButtons">
             <button class="login-btn" id="loginBtn">Iniciar sesión</button>
             <button class="register-btn" id="registerBtn">Registrarse</button>
-            <button class="help-btn" id="helpBtn">Ayuda</button>
+            <button class="help-btn" id="helpBtn">❓</button>
         </div>
     </header>
     
@@ -33,7 +33,7 @@
         <!-- Home Page -->
         <div id="homePage">
             <div class="search-container">
-                <h2>Buscar especies endémicas</h2>
+                <h2 id="searchTitle">Buscar especies endémicas</h2>
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="Buscar por nombre de especie...">
                     <button id="searchBtn">Buscar</button>
@@ -69,7 +69,7 @@
                 </div>
             </div>
             
-            <h2>Especies destacadas</h2>
+            <h2 id="featuredSpeciesTitle">Especies destacadas</h2>
             <div class="species-grid" id="speciesGrid">
                 <!-- Species cards will be dynamically inserted here -->
             </div>
@@ -77,7 +77,7 @@
         
         <!-- Species Page (Listado completo) -->
         <div id="speciesPage" style="display: none;">
-            <h2>Todas las especies endémicas</h2>
+            <h2 id="allSpeciesTitle">Todas las especies endémicas</h2>
             <div class="species-grid" id="fullSpeciesGrid">
                 <!-- Full species list will be inserted here -->
             </div>
@@ -101,13 +101,13 @@
                     <p id="detailScientificName"><strong>Nombre científico:</strong> <span id="scientificNameValue"></span></p>
                     <p id="detailSource"><strong>Fuente:</strong> <span id="sourceValue"></span></p>
                     
-                    <h3>Descripción</h3>
+                    <h3 id="descriptionTitle">Descripción</h3>
                     <p id="detailDescription">Descripción detallada de la especie...</p>
                     
-                    <h3>Distribución</h3>
+                    <h3 id="distributionTitle">Distribución</h3>
                     <p id="detailDistribution">Información sobre la distribución geográfica...</p>
                     
-                    <h3>Conservación</h3>
+                    <h3 id="conservationTitle">Conservación</h3>
                     <p id="detailConservation">Información sobre el estado de conservación...</p>
                 </div>
             </div>
@@ -120,16 +120,16 @@
             
             <!-- Comments Section -->
             <div class="comments-section">
-                <h3>Comentarios</h3>
+                <h3 id="commentsTitle">Comentarios</h3>
                 <div class="comments-list" id="commentsList">
                     <!-- Comments will be dynamically inserted here -->
                 </div>
                 
                 <div id="commentFormContainer">
-                    <h4>Agregar comentario</h4>
+                    <h4 id="addCommentTitle">Agregar comentario</h4>
                     <form id="commentForm">
                         <textarea id="commentText" placeholder="Escribe tu comentario..." required></textarea>
-                        <button type="submit" class="submit-btn">Publicar comentario</button>
+                        <button type="submit" class="submit-btn" id="postCommentBtn">Publicar comentario</button>
                     </form>
                 </div>
             </div>
@@ -137,7 +137,7 @@
         
         <!-- Stats Page -->
         <div class="stats-container" id="statsPage">
-            <h2>Estadísticas de especies</h2>
+            <h2 id="statsTitle">Estadísticas de especies</h2>
             
             <div class="chart-container">
                 <div class="chart-placeholder">
@@ -162,10 +162,10 @@
         
         <!-- Contact Page -->
         <div class="contact-container" id="contactPage">
-            <h2>Contacto y ayuda</h2>
+            <h2 id="contactTitle">Contacto y ayuda</h2>
             
             <div class="faq-section">
-                <h3>Preguntas frecuentes</h3>
+                <h3 id="faqTitle">Preguntas frecuentes</h3>
                 
                 <div class="faq-item">
                     <div class="faq-question">¿Qué es una especie endémica?</div>
@@ -184,7 +184,7 @@
             </div>
             
             <div class="contact-form">
-                <h3>Formulario de contacto</h3>
+                <h3 id="contactFormTitle">Formulario de contacto</h3>
                 <form id="contactForm" action="https://formsubmit.co/vdiegojovani@gmail.com" method="POST">
                     <input type="hidden" name="_subject" value="Nuevo mensaje de contacto - Especies Endémicas">
                     <input type="hidden" name="_next" value="https://diegovazquez23.github.io/especiesendemicasmx.github.io/">
@@ -200,7 +200,7 @@
                         <label for="contactMessage">Mensaje</label>
                         <textarea id="contactMessage" name="mensaje" required></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Enviar mensaje</button>
+                    <button type="submit" class="submit-btn" id="sendMessageBtn">Enviar mensaje</button>
                     <div class="success-message" id="contactSuccess">¡Mensaje enviado con éxito!</div>
                 </form>
             </div>
@@ -208,10 +208,10 @@
         
         <!-- Help Page -->
         <div class="contact-container" id="helpPage">
-            <h2>Centro de ayuda</h2>
+            <h2 id="helpCenterTitle">Centro de ayuda</h2>
             
             <div class="faq-section">
-                <h3>Guías de uso</h3>
+                <h3 id="guidesTitle">Guías de uso</h3>
                 
                 <div class="faq-item">
                     <div class="faq-question">¿Cómo buscar especies?</div>
@@ -235,7 +235,7 @@
             </div>
             
             <div class="contact-form">
-                <h3>¿Necesitas más ayuda?</h3>
+                <h3 id="needHelpTitle">¿Necesitas más ayuda?</h3>
                 <p>Si no encontraste respuesta a tu pregunta, contáctanos usando el formulario a continuación:</p>
                 <form id="helpForm" action="https://formsubmit.co/vdiegojovani@gmail.com" method="POST">
                     <input type="hidden" name="_subject" value="Solicitud de ayuda - Especies Endémicas">
@@ -252,7 +252,7 @@
                         <label for="helpMessage">Mensaje</label>
                         <textarea id="helpMessage" name="mensaje de ayuda" required></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Enviar solicitud</button>
+                    <button type="submit" class="submit-btn" id="sendHelpBtn">Enviar solicitud</button>
                     <div class="success-message" id="helpSuccess">¡Solicitud enviada con éxito!</div>
                 </form>
             </div>
@@ -260,8 +260,8 @@
     </main>
     
     <footer>
-        <p>© 2025 Especies Endémicas de México. Todos los derechos reservados.</p>
-        <p>Fuentes: CONABIO, SEMARNAT, UICN Creada por: Diego Jovani Vázquez Hernández</p>
+        <p id="footerRights">© 2025 Especies Endémicas de México. Todos los derechos reservados.</p>
+        <p id="footerSources">Fuentes: CONABIO, SEMARNAT, UICN Creada por: Diego Jovani Vázquez Hernández</p>
     </footer>
     
     <div class="utility-buttons">
@@ -274,7 +274,7 @@
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Iniciar sesión</h2>
+                <h2 id="loginModalTitle">Iniciar sesión</h2>
                 <button class="close-btn" id="closeLoginModal">&times;</button>
             </div>
             <form id="loginForm">
@@ -289,7 +289,7 @@
                     <div class="error-message" id="loginPasswordError">La contraseña es requerida</div>
                 </div>
                 <a href="#" id="forgotPassword">¿Olvidaste tu contraseña?</a>
-                <button type="submit" class="submit-btn">Iniciar sesión</button>
+                <button type="submit" class="submit-btn" id="loginSubmitBtn">Iniciar sesión</button>
                 <div class="error-message" id="loginError">Credenciales incorrectas</div>
             </form>
         </div>
@@ -299,7 +299,7 @@
     <div class="modal" id="registerModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Registrarse</h2>
+                <h2 id="registerModalTitle">Registrarse</h2>
                 <button class="close-btn" id="closeRegisterModal">&times;</button>
             </div>
             <form id="registerForm">
@@ -323,7 +323,7 @@
                     <input type="password" id="registerConfirmPassword" required minlength="8">
                     <div class="error-message" id="registerConfirmError">Las contraseñas no coinciden</div>
                 </div>
-                <button type="submit" class="submit-btn">Registrarse</button>
+                <button type="submit" class="submit-btn" id="registerSubmitBtn">Registrarse</button>
                 <div class="success-message" id="registerSuccess">¡Registro exitoso! Ahora puedes iniciar sesión.</div>
             </form>
         </div>
@@ -333,7 +333,7 @@
     <div class="modal" id="forgotPasswordModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Recuperar contraseña</h2>
+                <h2 id="forgotPasswordTitle">Recuperar contraseña</h2>
                 <button class="close-btn" id="closeForgotPasswordModal">&times;</button>
             </div>
             <form id="forgotPasswordForm">
@@ -342,8 +342,8 @@
                     <input type="email" id="forgotEmail" required>
                     <div class="error-message" id="forgotEmailError">Por favor ingresa un correo válido</div>
                 </div>
-                <p>Te enviaremos un enlace para restablecer tu contraseña.</p>
-                <button type="submit" class="submit-btn">Enviar enlace</button>
+                <p id="forgotInstructions">Te enviaremos un enlace para restablecer tu contraseña.</p>
+                <button type="submit" class="submit-btn" id="forgotSubmitBtn">Enviar enlace</button>
                 <div class="success-message" id="forgotSuccess">¡Se ha enviado un enlace de recuperación a tu correo!</div>
             </form>
         </div>
@@ -353,7 +353,7 @@
     <div class="modal" id="addSpeciesModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Agregar nueva especie</h2>
+                <h2 id="addSpeciesModalTitle">Agregar nueva especie</h2>
                 <button class="close-btn" id="closeAddSpeciesModal">&times;</button>
             </div>
             <form id="addSpeciesForm">
@@ -412,7 +412,7 @@
                     <label for="speciesConservation">Información de conservación</label>
                     <textarea id="speciesConservation" required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">Guardar especie</button>
+                <button type="submit" class="submit-btn" id="addSpeciesSubmitBtn">Guardar especie</button>
                 <div class="success-message" id="addSpeciesSuccess">¡Especie agregada correctamente!</div>
             </form>
         </div>
@@ -422,7 +422,7 @@
     <div class="modal" id="editSpeciesModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Editar especie</h2>
+                <h2 id="editSpeciesModalTitle">Editar especie</h2>
                 <button class="close-btn" id="closeEditSpeciesModal">&times;</button>
             </div>
             <form id="editSpeciesForm">
@@ -482,7 +482,7 @@
                     <label for="editSpeciesConservation">Información de conservación</label>
                     <textarea id="editSpeciesConservation" required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">Guardar cambios</button>
+                <button type="submit" class="submit-btn" id="editSpeciesSubmitBtn">Guardar cambios</button>
                 <div class="success-message" id="editSpeciesSuccess">¡Cambios guardados correctamente!</div>
             </form>
         </div>
@@ -492,10 +492,10 @@
     <div class="modal" id="deleteConfirmModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Confirmar eliminación</h2>
+                <h2 id="deleteConfirmTitle">Confirmar eliminación</h2>
                 <button class="close-btn" id="closeDeleteConfirmModal">&times;</button>
             </div>
-            <p>¿Estás seguro que deseas eliminar esta especie? Esta acción no se puede deshacer.</p>
+            <p id="deleteMessage">¿Estás seguro que deseas eliminar esta especie? Esta acción no se puede deshacer.</p>
             <input type="hidden" id="speciesToDeleteId">
             <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
                 <button class="submit-btn" id="confirmDeleteBtn" style="background-color: var(--error-color);">Sí, eliminar</button>
