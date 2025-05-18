@@ -7,7 +7,7 @@ const speciesData = [
         category: "fauna",
         status: "en_peligro",
         region: "centro",
-        image: "https://www.interactiveaquariumcancun.com/hs-fs/hubfs/Ajolote%20nadando%20(1)-1.jpg?width=1600&height=1067&name=Ajolote%20nadando%20(1)-1.jpg",
+        image: "https://static.nationalgeographic.es/files/styles/image_3200/public/NationalGeographic_2697714.jpg?w=1900&h=1599",
         source: "CONABIO",
         description: "El ajolote es una especie de salamandra que conserva sus características larvarias en su vida adulta (neotenia). Es endémico del sistema lacustre de la Cuenca de México y ha tenido una gran importancia cultural en México.",
         distribution: "Originalmente se encontraba en los lagos de Xochimilco y Chalco en la Ciudad de México. Actualmente su hábitat natural está casi desaparecido.",
@@ -116,6 +116,19 @@ const speciesData = [
         description: "Planta utilizada desde la época prehispánica para producir pulque. De crecimiento lento y gran importancia cultural.",
         distribution: "Regiones áridas y semiáridas del centro de México.",
         conservation: "Estado estable, aunque algunas variedades están en riesgo por sobreexplotación."
+    },
+    {
+        id: 10,
+        name: "Perrito de la pradera mexicano",
+        scientificName: "Cynomys mexicanus",
+        category: "fauna",
+        status: "en_peligro",
+        region: "norte",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSavDqz3F7GUEtEqnG1Gu8vAYmbYB80L50n3g&s",
+        source: "UICN",
+        description: "Roedor social que vive en colonias. Especie clave para los ecosistemas de pastizales.",
+        distribution: "Áreas limitadas de Coahuila, Nuevo León y San Luis Potosí.",
+        conservation: "En peligro por pérdida de hábitat y exterminio como plaga."
     },
     {
         id: 10,
@@ -1328,9 +1341,26 @@ const speciesData = [
     }
 ];
 
-const commentsData = {
-    // (Aqui se almacenan los comentarios)
-};
+// Base de datos simulada de usuarios
+let usersDatabase = [
+    {
+        id: 1,
+        name: "Diego Vázquez",
+        email: "diego.vazquez.h@cua.uam.mx",
+        password: "12345678",
+        isAdmin: true
+    },
+    {
+        id: 2,
+        name: "Usuario Ejemplo",
+        email: "usuario@cua.uam.mx",
+        password: "12345678",
+        isAdmin: false
+    }
+];
+
+// Almacenamiento de comentarios
+const commentsData = {};
 
 // Estado de la aplicación
 let currentUser = null;
@@ -1339,6 +1369,11 @@ let currentPage = "home";
 let currentSpeciesId = null;
 let darkMode = false;
 let language = localStorage.getItem('language') || 'es';
+
+// Cargar usuarios desde localStorage al iniciar
+if (localStorage.getItem("usersDatabase")) {
+    usersDatabase = JSON.parse(localStorage.getItem("usersDatabase"));
+}
 
 // Diccionario de traducciones
 const translations = {
@@ -1351,6 +1386,7 @@ const translations = {
         statsTitle: "Estadísticas de especies",
         contactTitle: "Contacto y ayuda",
         helpTitle: "Centro de ayuda",
+        emailExists: "El correo electrónico ya está registrado",
         
         // Navbar
         home: "Inicio",
@@ -1444,13 +1480,14 @@ const translations = {
     },
     en: {
         // Títulos principales
-        mainTitle: "Especies Endémicas de México",
+        mainTitle: "Endemic Species of Mexico",
         searchTitle: "Search endemic species",
         featuredSpecies: "Featured species",
         allSpecies: "All endemic species",
         statsTitle: "Species statistics",
         contactTitle: "Contact and help",
         helpTitle: "Help center",
+        emailExists: "Email is already registered",
         
         // Navbar
         home: "Home",
@@ -1582,8 +1619,40 @@ function showPage(page) {
         renderFullSpeciesList();
     }
     
-    // Actualizar el idioma al cambiar de página
     updateContentLanguage();
+}
+
+function registerUser(name, email, password) {
+    const userExists = usersDatabase.some(user => user.email === email);
+    if (userExists) {
+        return { success: false, message: translations[language].emailExists };
+    }
+    
+    const newUser = {
+        id: usersDatabase.length > 0 ? Math.max(...usersDatabase.map(u => u.id)) + 1 : 1,
+        name: name,
+        email: email,
+        password: password,
+        isAdmin: false
+    };
+    
+    usersDatabase.push(newUser);
+    localStorage.setItem("usersDatabase", JSON.stringify(usersDatabase));
+    return { success: true, user: newUser };
+}
+
+function loginUser(email, password) {
+    const user = usersDatabase.find(user => user.email === email && user.password === password);
+    if (user) {
+        currentUser = {
+            id: user.id,
+            name: user.name,
+            email: user.email
+        };
+        isAdmin = user.isAdmin;
+        return true;
+    }
+    return false;
 }
 
 function updateAdminUI() {
@@ -1890,25 +1959,6 @@ function isValidEmail(email) {
     return email.endsWith("@cua.uam.mx");
 }
 
-function loginUser(email, password) {
-    if (email === "diego.vazquez.h@cua.uam.mx" && password === "12345678") {
-        currentUser = {
-            name: "Diego Vázquez",
-            email: "diego.vazquez.h@cua.uam.mx"
-        };
-        isAdmin = true;
-        return true;
-    } else if (email === "usuario@cua.uam.mx" && password === "12345678") {
-        currentUser = {
-            name: "Usuario Ejemplo",
-            email: "usuario@cua.uam.mx"
-        };
-        isAdmin = false;
-        return true;
-    }
-    return false;
-}
-
 function updateContentLanguage() {
     const t = translations[language];
     
@@ -2090,7 +2140,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (loginUser(email, password)) {
             hideModal("loginModal");
             updateAdminUI();
-            showPage(currentPage); // Actualizar la vista
+            showPage(currentPage);
         } else {
             showError("loginError");
         }
@@ -2131,13 +2181,19 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
         
-        showSuccess("registerSuccess");
-        setTimeout(() => {
-            hideModal("registerModal");
-            document.getElementById("loginEmail").value = email;
-            document.getElementById("loginPassword").value = password;
-            showModal("loginModal");
-        }, 2000);
+        const registration = registerUser(name, email, password);
+        if (registration.success) {
+            showSuccess("registerSuccess");
+            setTimeout(() => {
+                hideModal("registerModal");
+                document.getElementById("loginEmail").value = email;
+                document.getElementById("loginPassword").value = password;
+                showModal("loginModal");
+            }, 2000);
+        } else {
+            document.getElementById("registerEmailError").textContent = registration.message;
+            showError("registerEmailError");
+        }
     });
     
     document.getElementById("forgotPasswordForm").addEventListener("submit", function(e) {
@@ -2147,6 +2203,14 @@ document.addEventListener("DOMContentLoaded", function() {
         const email = document.getElementById("forgotEmail").value;
         
         if (!email) {
+            showError("forgotEmailError");
+            return;
+        }
+        
+        // Verificar si el correo existe
+        const userExists = usersDatabase.some(user => user.email === email);
+        if (!userExists) {
+            document.getElementById("forgotEmailError").textContent = translations[language].emailExists || "No existe una cuenta con este correo electrónico";
             showError("forgotEmailError");
             return;
         }
@@ -2184,7 +2248,7 @@ document.addEventListener("DOMContentLoaded", function() {
         currentUser = null;
         isAdmin = false;
         updateAdminUI();
-        showPage(currentPage); // Actualizar la vista
+        showPage(currentPage);
     });
     
     adminBtn.addEventListener("click", function() {
