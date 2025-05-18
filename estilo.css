@@ -33,7 +33,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 header {
@@ -62,6 +62,7 @@ header {
 
 .logo h1 {
     font-size: 1.5rem;
+    font-weight: 600;
 }
 
 nav ul {
@@ -78,6 +79,7 @@ nav ul li a {
     text-decoration: none;
     padding: 0.5rem;
     border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
 nav ul li a:hover {
@@ -110,6 +112,7 @@ nav ul li a:hover {
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+    transition: all 0.3s;
 }
 
 .login-btn {
@@ -118,9 +121,17 @@ nav ul li a:hover {
     border: 1px solid white !important;
 }
 
+.login-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 .register-btn {
     background-color: white;
     color: var(--primary-color);
+}
+
+.register-btn:hover {
+    background-color: #f0f0f0;
 }
 
 .help-btn {
@@ -128,14 +139,26 @@ nav ul li a:hover {
     color: var(--dark-color);
 }
 
+.help-btn:hover {
+    background-color: #e0e0e0;
+}
+
 .logout-btn {
     background-color: var(--error-color);
     color: white;
 }
 
+.logout-btn:hover {
+    background-color: #d32f2f;
+}
+
 .admin-btn {
     background-color: var(--dark-color);
     color: white;
+}
+
+.admin-btn:hover {
+    background-color: #0d4210;
 }
 
 .add-species-btn {
@@ -147,6 +170,12 @@ nav ul li a:hover {
     cursor: pointer;
     font-size: 1rem;
     display: none;
+    transition: all 0.3s;
+}
+
+.add-species-btn:hover {
+    background-color: #0d4210;
+    transform: scale(1.05);
 }
 
 .admin-visible .add-species-btn {
@@ -163,8 +192,8 @@ nav ul li a:hover {
 .search-container {
     background-color: var(--card-bg);
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     margin-bottom: 2rem;
 }
 
@@ -179,6 +208,12 @@ nav ul li a:hover {
     border: 1px solid #ddd;
     border-radius: 4px 0 0 4px;
     font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
 }
 
 .search-box button {
@@ -189,6 +224,11 @@ nav ul li a:hover {
     border-radius: 0 4px 4px 0;
     cursor: pointer;
     font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.search-box button:hover {
+    background-color: var(--dark-color);
 }
 
 .filters {
@@ -214,6 +254,14 @@ nav ul li a:hover {
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 1rem;
+    transition: border-color 0.3s;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--secondary-color);
 }
 
 .species-grid {
@@ -225,21 +273,27 @@ nav ul li a:hover {
 
 .species-card {
     background-color: var(--card-bg);
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
 }
 
 .species-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .species-card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.species-card:hover img {
+    transform: scale(1.03);
 }
 
 .species-info {
@@ -249,6 +303,7 @@ nav ul li a:hover {
 .species-info h3 {
     margin-bottom: 0.5rem;
     color: var(--primary-color);
+    font-weight: 600;
 }
 
 .species-meta {
@@ -262,6 +317,7 @@ nav ul li a:hover {
 .species-description {
     margin-bottom: 1rem;
     font-size: 0.9rem;
+    line-height: 1.6;
 }
 
 .view-btn {
@@ -270,8 +326,18 @@ nav ul li a:hover {
     background-color: var(--secondary-color);
     color: white;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-weight: bold;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+.view-btn:hover {
+    background-color: var(--dark-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .admin-controls {
@@ -293,6 +359,7 @@ nav ul li a:hover {
     cursor: pointer;
     font-size: 0.8rem;
     opacity: 0.9;
+    transition: all 0.3s;
 }
 
 .edit-btn {
@@ -300,42 +367,171 @@ nav ul li a:hover {
     color: white;
 }
 
+.edit-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
 .delete-btn {
     background-color: var(--error-color);
     color: white;
 }
 
+.delete-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Estilos mejorados para la sección de comentarios */
 .comments-section {
     margin-top: 2rem;
     background-color: var(--card-bg);
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.comments-title {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--secondary-color);
+    font-weight: 600;
 }
 
 .comments-list {
-    margin-top: 1rem;
+    margin: 1.5rem 0;
 }
 
 .comment {
-    padding: 1rem;
-    border-bottom: 1px solid #eee;
+    background-color: var(--bg-color);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+.comment:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 1rem;
+    position: relative;
+    padding-right: 40px;
 }
 
 .comment-author {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.comment-date {
+    font-size: 0.85rem;
+    color: #777;
+    order: 2;
+    margin-left: auto;
+}
+
+.comment-text {
+    line-height: 1.6;
+    color: var(--text-color);
+    padding: 0.5rem 0;
+}
+
+.no-comments {
+    text-align: center;
+    padding: 2rem;
+    color: #777;
+    font-style: italic;
+    background-color: var(--bg-color);
+    border-radius: 8px;
+}
+
+/* Formulario de comentarios */
+.comment-form-container {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.comment-form-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
 .comment-form textarea {
     width: 100%;
-    padding: 0.8rem;
+    padding: 1rem;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 8px;
     margin-bottom: 1rem;
     resize: vertical;
-    min-height: 100px;
+    min-height: 120px;
+    font-family: inherit;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    transition: border-color 0.3s;
+}
+
+.comment-form textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.post-comment-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.post-comment-btn:hover {
+    background-color: var(--dark-color);
+    transform: translateY(-2px);
+}
+
+/* Botón para eliminar comentarios - CORRECCIÓN APLICADA */
+.delete-comment-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--error-color);
+    color: white;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.delete-comment-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 footer {
@@ -369,6 +565,12 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s;
+}
+
+.utility-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 /* Modal styles */
@@ -388,11 +590,12 @@ footer {
 .modal-content {
     background-color: var(--card-bg);
     padding: 2rem;
-    border-radius: 8px;
+    border-radius: 12px;
     width: 90%;
     max-width: 500px;
     max-height: 90vh;
     overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
 
 .modal-header {
@@ -404,6 +607,7 @@ footer {
 
 .modal-header h2 {
     color: var(--primary-color);
+    font-weight: 600;
 }
 
 .close-btn {
@@ -412,10 +616,15 @@ footer {
     font-size: 1.5rem;
     cursor: pointer;
     color: var(--text-color);
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: var(--error-color);
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-group label {
@@ -428,8 +637,17 @@ footer {
     width: 100%;
     padding: 0.8rem;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 1rem;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
 }
 
 .form-group textarea {
@@ -442,11 +660,17 @@ footer {
     color: white;
     border: none;
     padding: 0.8rem 1.5rem;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 1rem;
     font-weight: bold;
     margin-top: 1rem;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: var(--dark-color);
+    transform: translateY(-2px);
 }
 
 .error-message {
@@ -468,9 +692,9 @@ footer {
 .species-detail {
     display: none;
     background-color: var(--card-bg);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     margin-top: 2rem;
 }
 
@@ -490,7 +714,13 @@ footer {
     width: 100%;
     max-height: 400px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.species-detail-image img:hover {
+    transform: scale(1.02);
 }
 
 .species-detail-info {
@@ -501,6 +731,7 @@ footer {
 .species-detail-info h2 {
     color: var(--primary-color);
     margin-bottom: 1rem;
+    font-weight: 600;
 }
 
 .species-detail-meta {
@@ -524,9 +755,16 @@ footer {
     background-color: var(--primary-color);
     color: white;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-weight: bold;
     margin-bottom: 1rem;
+    transition: all 0.3s;
+}
+
+.back-btn:hover {
+    background-color: var(--dark-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 /* Stats page styles */
@@ -534,8 +772,8 @@ footer {
     display: none;
     background-color: var(--card-bg);
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     margin-top: 2rem;
 }
 
@@ -549,14 +787,14 @@ footer {
     width: 100%;
     max-width: 800px;
     height: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
 }
 
 .chart-image:hover {
     transform: scale(1.02);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
 }
 
 .chart-caption {
@@ -566,21 +804,22 @@ footer {
     font-style: italic;
 }
 
-@media (max-width: 768px) {
-    .chart-image {
-        width: 100%;
-    }
-}
-
 .download-btn {
     display: inline-block;
     padding: 0.5rem 1rem;
     background-color: var(--secondary-color);
     color: white;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-weight: bold;
     margin-top: 1rem;
+    transition: all 0.3s;
+}
+
+.download-btn:hover {
+    background-color: var(--dark-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 /* Contact page styles */
@@ -588,8 +827,8 @@ footer {
     display: none;
     background-color: var(--card-bg);
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     margin-top: 2rem;
 }
 
@@ -598,13 +837,51 @@ footer {
 }
 
 .faq-item {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    background-color: var(--bg-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .faq-question {
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--primary-color);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilos para modo oscuro */
+.dark-mode .comment {
+    background-color: #1e1e1e;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .comment-form-container {
+    background-color: #1e1e1e;
+}
+
+.dark-mode .comment-form textarea {
+    background-color: #2a2a2a;
+    border-color: #444;
+}
+
+.dark-mode .faq-item {
+    background-color: #1e1e1e;
+}
+
+/* Corrección para controles de admin */
+#detailAdminControls {
+    display: none;
+}
+
+.admin-visible #detailAdminControls {
+    display: flex !important;
 }
 
 /* Responsive design */
@@ -656,13 +933,43 @@ footer {
     .species-detail-image, .species-detail-info {
         min-width: 100%;
     }
+
+    .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    .utility-buttons {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .utility-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
 }
 
-/* Corrección para controles de admin */
-#detailAdminControls {
-    display: none;
-}
+@media (max-width: 480px) {
+    .main-content {
+        padding: 1rem;
+    }
 
-.admin-visible #detailAdminControls {
-    display: flex !important;
+    .search-container, .species-detail, .stats-container, .contact-container {
+        padding: 1.5rem;
+    }
+
+    .species-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .filter-group {
+        min-width: 100%;
+    }
+
+    .comments-section, .comment-form-container {
+        padding: 1rem;
+    }
 }
