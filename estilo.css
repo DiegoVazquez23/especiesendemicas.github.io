@@ -139,7 +139,7 @@ nav ul li a:hover {
 }
 
 .add-species-btn {
-    background-color: var(--secondary-color);
+    background-color: var(--dark-color);
     color: white;
     padding: 0.5rem;
     border: none;
