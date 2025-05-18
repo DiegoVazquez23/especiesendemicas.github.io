@@ -4,6 +4,7 @@
     --dark-color: #1B5E20;
     --light-color: #f0f0f0;
     --text-color: #333;
+    --text-color-light: #f0f0f0;
     --bg-color: #f9f9f9;
     --card-bg: #fff;
     --error-color: #f44336;
@@ -63,6 +64,7 @@ header {
 .logo h1 {
     font-size: 1.5rem;
     font-weight: 600;
+    color: white;
 }
 
 nav ul {
@@ -209,6 +211,8 @@ nav ul li a:hover {
     border-radius: 4px 0 0 4px;
     font-size: 1rem;
     transition: border-color 0.3s;
+    background-color: var(--card-bg);
+    color: var(--text-color);
 }
 
 .search-box input:focus {
@@ -246,6 +250,7 @@ nav ul li a:hover {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
+    color: var(--text-color);
 }
 
 .filter-group select {
@@ -304,6 +309,11 @@ nav ul li a:hover {
     margin-bottom: 0.5rem;
     color: var(--primary-color);
     font-weight: 600;
+    transition: color 0.3s;
+}
+
+.dark-mode .species-info h3 {
+    color: var(--text-color-light);
 }
 
 .species-meta {
@@ -312,12 +322,22 @@ nav ul li a:hover {
     margin-bottom: 1rem;
     font-size: 0.9rem;
     color: #666;
+    transition: color 0.3s;
+}
+
+.dark-mode .species-meta {
+    color: #aaa;
 }
 
 .species-description {
     margin-bottom: 1rem;
     font-size: 0.9rem;
     line-height: 1.6;
+    transition: color 0.3s;
+}
+
+.dark-mode .species-description {
+    color: #e0e0e0;
 }
 
 .view-btn {
@@ -442,6 +462,10 @@ nav ul li a:hover {
     margin-left: auto;
 }
 
+.dark-mode .comment-date {
+    color: #aaa;
+}
+
 .comment-text {
     line-height: 1.6;
     color: var(--text-color);
@@ -455,6 +479,10 @@ nav ul li a:hover {
     font-style: italic;
     background-color: var(--bg-color);
     border-radius: 8px;
+}
+
+.dark-mode .no-comments {
+    color: #aaa;
 }
 
 /* Formulario de comentarios */
@@ -510,7 +538,7 @@ nav ul li a:hover {
     transform: translateY(-2px);
 }
 
-/* Botón para eliminar comentarios - CORRECCIÓN APLICADA */
+/* Botón para eliminar comentarios */
 .delete-comment-btn {
     position: absolute;
     top: 0;
@@ -631,6 +659,7 @@ footer {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
+    color: var(--text-color);
 }
 
 .form-group input, .form-group select, .form-group textarea {
@@ -732,6 +761,11 @@ footer {
     color: var(--primary-color);
     margin-bottom: 1rem;
     font-weight: 600;
+    transition: color 0.3s;
+}
+
+.dark-mode .species-detail-info h2 {
+    color: var(--text-color-light);
 }
 
 .species-detail-meta {
