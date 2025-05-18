@@ -1,4 +1,4 @@
-// Datos de ejemplo para simular una base de datos
+// Datos para simular una base de datos
 const speciesData = [
     {
         id: 1,
@@ -1305,7 +1305,7 @@ const speciesData = [
     name: "Rata canguro de San José",
     scientificName: "Dipodomys gravipes",
     category: "fauna",
-    status: "en_peligro_critico",
+    status: "en_peligro",
     region: "norte",
     image: "https://fundacionjcangelcraftacparalaeducacion.wordpress.com/wp-content/uploads/2018/10/rata-canguro-dipodomys-foto-i.jpg",
     source: "UICN",
@@ -1347,8 +1347,7 @@ let usersDatabase = [
 ];
 
 // Almacenamiento de comentarios
-const commentsData = {};
-
+let commentsData = JSON.parse(localStorage.getItem("commentsData")) || {};
 // Estado de la aplicación
 let currentUser = null;
 let isAdmin = false;
@@ -2209,27 +2208,36 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     
     document.getElementById("commentForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        
-        if (!currentUser || !currentSpeciesId) return;
-        
-        const commentText = document.getElementById("commentText").value;
-        
-        if (!commentsData[currentSpeciesId]) {
-            commentsData[currentSpeciesId] = [];
-        }
-        
-        const newComment = {
-            id: commentsData[currentSpeciesId].length + 1,
-            author: currentUser.name,
-            date: new Date().toISOString().split('T')[0],
-            text: commentText
-        };
-        
-        commentsData[currentSpeciesId].push(newComment);
-        renderComments(currentSpeciesId);
-        document.getElementById("commentText").value = "";
-    });
+    e.preventDefault();
+    
+    if (!currentUser || !currentSpeciesId) return;
+    
+    const commentText = document.getElementById("commentText").value;
+    
+    // Cargar comentarios existentes desde localStorage (si existen)
+    const storedComments = JSON.parse(localStorage.getItem("commentsData")) || {};
+    
+    if (!storedComments[currentSpeciesId]) {
+        storedComments[currentSpeciesId] = [];
+    }
+    
+    const newComment = {
+        id: storedComments[currentSpeciesId].length + 1,
+        author: currentUser.name,
+        date: new Date().toISOString().split('T')[0],
+        text: commentText
+    };
+    
+    storedComments[currentSpeciesId].push(newComment);
+    
+    // Guardar en localStorage
+    localStorage.setItem("commentsData", JSON.stringify(storedComments));
+    
+    // Actualizar la interfaz
+    commentsData[currentSpeciesId] = storedComments[currentSpeciesId];
+    renderComments(currentSpeciesId);
+    document.getElementById("commentText").value = "";
+});
     
     logoutBtn.addEventListener("click", function() {
         currentUser = null;
