@@ -131,19 +131,6 @@ const speciesData = [
         conservation: "En peligro por pérdida de hábitat y exterminio como plaga."
     },
     {
-        id: 10,
-        name: "Perrito de la pradera mexicano",
-        scientificName: "Cynomys mexicanus",
-        category: "fauna",
-        status: "en_peligro",
-        region: "norte",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSavDqz3F7GUEtEqnG1Gu8vAYmbYB80L50n3g&s",
-        source: "UICN",
-        description: "Roedor social que vive en colonias. Especie clave para los ecosistemas de pastizales.",
-        distribution: "Áreas limitadas de Coahuila, Nuevo León y San Luis Potosí.",
-        conservation: "En peligro por pérdida de hábitat y exterminio como plaga."
-    },
-    {
         id: 11,
         name: "Orquídea monja blanca",
         scientificName: "Lycaste skinneri",
@@ -717,7 +704,7 @@ const speciesData = [
     },
     {
         id: 55,
-        name: "Cotorra serrana occidental",
+        name: "Cotorra de la sierra occidental",
         scientificName: "Rhynchopsitta pachyrhyncha",
         category: "fauna",
         status: "en_peligro",
@@ -1717,13 +1704,13 @@ function renderSpeciesList(species = speciesData.slice(0, 6)) {
     });
 }
 
-function renderFullSpeciesList() {
+function renderFullSpeciesList(species = speciesData) {
     const grid = document.getElementById("fullSpeciesGrid");
     grid.innerHTML = "";
     
     const t = translations[language];
     
-    speciesData.forEach(specie => {
+    species.forEach(specie => {
         const card = document.createElement("div");
         card.className = "species-card";
         card.dataset.id = specie.id;
@@ -2274,7 +2261,12 @@ document.addEventListener("DOMContentLoaded", function() {
         if (currentPage === "species") {
             renderFullSpeciesList(filteredSpecies);
         } else {
-            renderSpeciesList(filteredSpecies.slice(0, 6));
+            // Mostrar todos los resultados si hay búsqueda/filtros, sino solo 6
+            if (searchTerm || category || region || status) {
+                renderSpeciesList(filteredSpecies);
+            } else {
+                renderSpeciesList(speciesData.slice(0, 6));
+            }
         }
     });
     
