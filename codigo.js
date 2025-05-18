@@ -1,4 +1,4 @@
-// Datos para simular una base de datos
+// Datos de ejemplo para simular una base de datos
 const speciesData = [
     {
         id: 1,
@@ -1348,6 +1348,7 @@ let usersDatabase = [
 
 // Almacenamiento de comentarios
 let commentsData = JSON.parse(localStorage.getItem("commentsData")) || {};
+
 // Estado de la aplicación
 let currentUser = null;
 let isAdmin = false;
@@ -1441,7 +1442,7 @@ const translations = {
         saveSpecies: "Guardar especie",
         saveChanges: "Guardar cambios",
         deleteConfirm: "Confirmar eliminación",
-        deleteMessage: "¿Estás seguro que deseas eliminar esta especie? Esta acción no se puede deshacer.",
+        deleteMessage: "¿Estás seguro que deseas eliminar este comentario? Esta acción no se puede deshacer.",
         confirmDelete: "Sí, eliminar",
         cancel: "Cancelar",
         
@@ -1451,7 +1452,7 @@ const translations = {
         forgotSuccess: "¡Se ha enviado un enlace de recuperación a tu correo!",
         addSuccess: "¡Especie agregada correctamente!",
         editSuccess: "¡Cambios guardados correctamente!",
-        deleteSuccess: "Especie eliminada correctamente",
+        deleteSuccess: "Comentario eliminado correctamente",
         
         // Footer
         rights: "© 2025 Especies Endémicas de México. Todos los derechos reservados.",
@@ -1542,7 +1543,7 @@ const translations = {
         saveSpecies: "Save species",
         saveChanges: "Save changes",
         deleteConfirm: "Confirm deletion",
-        deleteMessage: "Are you sure you want to delete this species? This action cannot be undone.",
+        deleteMessage: "Are you sure you want to delete this comment? This action cannot be undone.",
         confirmDelete: "Yes, delete",
         cancel: "Cancel",
         
@@ -1552,7 +1553,7 @@ const translations = {
         forgotSuccess: "A recovery link has been sent to your email!",
         addSuccess: "Species added successfully!",
         editSuccess: "Changes saved successfully!",
-        deleteSuccess: "Species deleted successfully",
+        deleteSuccess: "Comment deleted successfully",
         
         // Footer
         rights: "© 2025 Endemic Species of Mexico. All rights reserved.",
@@ -1782,19 +1783,62 @@ function renderComments(speciesId) {
     const t = translations[language];
     
     if (comments.length === 0) {
-        commentsList.innerHTML = `<p>${t.noComments}</p>`;
+        commentsList.innerHTML = `<p class="no-comments">${t.noComments}</p>`;
         return;
     }
+    
+    // Ordenar comentarios por fecha (los más recientes primero)
+    comments.sort((a, b) => b.id - a.id);
     
     comments.forEach(comment => {
         const commentDiv = document.createElement("div");
         commentDiv.className = "comment";
         commentDiv.innerHTML = `
-            <div class="comment-author">${comment.author} <small>(${comment.date})</small></div>
+            <div class="comment-header">
+                <span class="comment-author">${comment.author}</span>
+                <span class="comment-date">${comment.date}</span>
+            </div>
             <div class="comment-text">${comment.text}</div>
+            ${currentUser && (currentUser.id === comment.authorId || isAdmin) ? 
+                `<button class="delete-comment-btn" data-comment-id="${comment.id}">🗑️</button>` : ''}
         `;
         commentsList.appendChild(commentDiv);
     });
+    
+    // Agregar event listeners para eliminar comentarios
+    document.querySelectorAll('.delete-comment-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const commentId = parseInt(this.dataset.commentId);
+            deleteComment(speciesId, commentId);
+        });
+    });
+}
+
+function deleteComment(speciesId, commentId) {
+    if (!currentUser || !speciesId || !commentId) return;
+    
+    // Confirmar eliminación
+    if (!confirm(translations[language].deleteMessage)) return;
+    
+    // Cargar comentarios desde localStorage
+    const storedComments = JSON.parse(localStorage.getItem("commentsData")) || {};
+    
+    if (storedComments[speciesId]) {
+        // Filtrar el comentario a eliminar
+        storedComments[speciesId] = storedComments[speciesId].filter(
+            comment => comment.id !== commentId
+        );
+        
+        // Guardar en localStorage
+        localStorage.setItem("commentsData", JSON.stringify(storedComments));
+        
+        // Actualizar la variable commentsData y la interfaz
+        commentsData = storedComments;
+        renderComments(speciesId);
+        
+        // Mostrar mensaje de éxito
+        alert(translations[language].deleteSuccess);
+    }
 }
 
 function getStatusText(status) {
@@ -2208,36 +2252,44 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     
     document.getElementById("commentForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    
-    if (!currentUser || !currentSpeciesId) return;
-    
-    const commentText = document.getElementById("commentText").value;
-    
-    // Cargar comentarios existentes desde localStorage (si existen)
-    const storedComments = JSON.parse(localStorage.getItem("commentsData")) || {};
-    
-    if (!storedComments[currentSpeciesId]) {
-        storedComments[currentSpeciesId] = [];
-    }
-    
-    const newComment = {
-        id: storedComments[currentSpeciesId].length + 1,
-        author: currentUser.name,
-        date: new Date().toISOString().split('T')[0],
-        text: commentText
-    };
-    
-    storedComments[currentSpeciesId].push(newComment);
-    
-    // Guardar en localStorage
-    localStorage.setItem("commentsData", JSON.stringify(storedComments));
-    
-    // Actualizar la interfaz
-    commentsData[currentSpeciesId] = storedComments[currentSpeciesId];
-    renderComments(currentSpeciesId);
-    document.getElementById("commentText").value = "";
-});
+        e.preventDefault();
+        
+        if (!currentUser || !currentSpeciesId) return;
+        
+        const commentText = document.getElementById("commentText").value.trim();
+        
+        if (!commentText) return; // No permitir comentarios vacíos
+        
+        // Cargar comentarios existentes desde localStorage
+        const storedComments = JSON.parse(localStorage.getItem("commentsData")) || {};
+        
+        // Si no hay comentarios para esta especie, crear un array vacío
+        if (!storedComments[currentSpeciesId]) {
+            storedComments[currentSpeciesId] = [];
+        }
+        
+        // Crear nuevo comentario
+        const newComment = {
+            id: Date.now(), // Usamos timestamp como ID único
+            author: currentUser.name,
+            authorId: currentUser.id, // Guardamos también el ID del usuario
+            date: new Date().toLocaleDateString(language === 'es' ? 'es-MX' : 'en-US'),
+            text: commentText
+        };
+        
+        // Agregar el nuevo comentario
+        storedComments[currentSpeciesId].push(newComment);
+        
+        // Guardar en localStorage
+        localStorage.setItem("commentsData", JSON.stringify(storedComments));
+        
+        // Actualizar la variable commentsData y la interfaz
+        commentsData = storedComments;
+        renderComments(currentSpeciesId);
+        
+        // Limpiar el campo de texto
+        document.getElementById("commentText").value = "";
+    });
     
     logoutBtn.addEventListener("click", function() {
         currentUser = null;
