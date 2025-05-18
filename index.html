@@ -19,13 +19,12 @@
                 <li><a href="#" class="nav-link" data-page="species">Especies</a></li>
                 <li><a href="#" class="nav-link" data-page="stats">Estadísticas</a></li>
                 <li><a href="#" class="nav-link" data-page="contact">Contacto</a></li>
-                <li><a href="#" class="nav-link" data-page="help">Ayuda</a></li>
             </ul>
         </nav>
         <div class="auth-buttons" id="authButtons">
             <button class="login-btn" id="loginBtn">Iniciar sesión</button>
             <button class="register-btn" id="registerBtn">Registrarse</button>
-            <button class="help-btn" id="helpBtn">❓</button>
+            <button class="help-btn" id="helpBtn">Ayuda</button>
         </div>
     </header>
     
@@ -136,29 +135,29 @@
         </div>
         
         <!-- Stats Page -->
-        <div class="stats-container" id="statsPage">
-            <h2 id="statsTitle">Estadísticas de especies</h2>
-            
-            <div class="chart-container">
-                <div class="chart-placeholder">
-                    Gráfica de distribución por tipo de especie
-                </div>
-            </div>
-            
-            <div class="chart-container">
-                <div class="chart-placeholder">
-                    Gráfica de distribución por estado de conservación
-                </div>
-            </div>
-            
-            <div class="chart-container">
-                <div class="chart-placeholder">
-                    Gráfica de distribución por región
-                </div>
-            </div>
-            
-            <a href="#" class="download-btn" id="downloadStatsBtn">Descargar estadísticas (CSV)</a>
-        </div>
+<div class="stats-container" id="statsPage">
+    <h2 id="statsTitle">Estadísticas de especies</h2>
+    
+    <div class="chart-container">
+        <img src="https://i.postimg.cc/Jz2wkW65/florayfauna.png" alt="Distribución por tipo de especie (Flora y Fauna)" class="chart-image">
+        <p class="chart-caption">Distribución de especies por categoría (Flora vs Fauna)</p>
+        <p class="figcaption">Esta gráfica muestra la proporción entre flora y fauna dentro de las especies endémicas consideradas. La fauna representa la mayoría, destacando la gran diversidad de animales únicos en México, como anfibios, reptiles y aves.</p>
+    </div>
+    
+    <div class="chart-container">
+        <img src="https://i.postimg.cc/brZSqnJj/edocon.png" alt="Distribución por estado de conservación" class="chart-image">
+        <p class="chart-caption">Estado de conservación de las especies</p>
+        <p class="figcaption">Esta gráfica representa el estado actual de conservación de las especies endémicas. Una parte considerable está amenazada o en peligro, lo que refleja la necesidad de acciones urgentes para su protección. Solo una minoría se encuentra en estado estable.</p>
+    </div>
+    
+    <div class="chart-container">
+        <img src="https://i.postimg.cc/520dyt3t/distribuciongeo.png" alt="Distribución geográfica por región" class="chart-image">
+        <p class="chart-caption">Distribución geográfica por región</p>
+        <p class="figcaption">La mayoría de las especies endémicas se concentran en el sur del país, donde la diversidad de ecosistemas tropicales favorece la evolución de especies únicas. El norte y el centro presentan menor diversidad, pero aún albergan especies adaptadas a climas más extremos.</p>
+    </div>
+    
+    <a href="#" class="download-btn" id="downloadStatsBtn">Descargar</a>
+</div>
         
         <!-- Contact Page -->
         <div class="contact-container" id="contactPage">
