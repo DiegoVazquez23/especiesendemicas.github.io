@@ -1,5 +1,5 @@
 // Datos de ejemplo para simular una base de datos
-const speciesData = [
+let speciesData = JSON.parse(localStorage.getItem("speciesData")) || [
     {
         id: 1,
         name: "Ajolote mexicano",
@@ -1329,7 +1329,7 @@ const speciesData = [
 ];
 
 // Base de datos simulada de usuarios
-let usersDatabase = [
+let usersDatabase = JSON.parse(localStorage.getItem("usersDatabase")) || [
     {
         id: 1,
         name: "Diego Vázquez",
@@ -1356,11 +1356,6 @@ let currentPage = "home";
 let currentSpeciesId = null;
 let darkMode = false;
 let language = localStorage.getItem('language') || 'es';
-
-// Cargar usuarios desde localStorage al iniciar
-if (localStorage.getItem("usersDatabase")) {
-    usersDatabase = JSON.parse(localStorage.getItem("usersDatabase"));
-}
 
 // Diccionario de traducciones
 const translations = {
@@ -1591,6 +1586,10 @@ addSpeciesBtn.innerHTML = "➕";
 addSpeciesBtn.id = "addSpeciesBtn";
 
 // Funciones de utilidad
+function saveSpeciesToLocalStorage() {
+    localStorage.setItem("speciesData", JSON.stringify(speciesData));
+}
+
 function showPage(page) {
     document.getElementById("homePage").style.display = "none";
     document.getElementById("speciesPage").style.display = "none";
@@ -1655,11 +1654,13 @@ function updateAdminUI() {
             addSpeciesBtn.title = t.addSpecies;
             authButtons.appendChild(adminBtn);
             authButtons.appendChild(addSpeciesBtn);
+            document.body.classList.add("admin-visible");
+        } else {
+            document.body.classList.remove("admin-visible");
         }
         
         logoutBtn.textContent = t.logout;
         authButtons.appendChild(logoutBtn);
-        document.body.classList.add("admin-visible");
     } else {
         authButtons.innerHTML = `
             <button class="login-btn" id="loginBtn">${t.login}</button>
@@ -1773,6 +1774,42 @@ function showSpeciesDetail(id) {
     document.getElementById("commentFormContainer").style.display = currentUser ? "block" : "none";
     
     showPage("speciesDetail");
+
+        // Mostrar/ocultar controles de admin
+    document.getElementById("detailAdminControls").style.display = isAdmin ? "flex" : "none";
+    
+    // Asignar event listeners a los botones de admin
+    document.getElementById("editSpeciesBtn").addEventListener("click", function(e) {
+        e.preventDefault();
+        showEditSpeciesModal(id);
+    });
+    
+    document.getElementById("deleteSpeciesBtn").addEventListener("click", function(e) {
+        e.preventDefault();
+        document.getElementById("speciesToDeleteId").value = id;
+        showModal("deleteConfirmModal");
+    });
+
+}
+
+// Nueva función para mostrar el modal de edición
+function showEditSpeciesModal(id) {
+    const specie = speciesData.find(s => s.id === id);
+    if (!specie) return;
+    
+    document.getElementById("editSpeciesId").value = specie.id;
+    document.getElementById("editSpeciesName").value = specie.name;
+    document.getElementById("editSpeciesScientific").value = specie.scientificName;
+    document.getElementById("editSpeciesCategory").value = specie.category;
+    document.getElementById("editSpeciesStatus").value = specie.status;
+    document.getElementById("editSpeciesRegion").value = specie.region;
+    document.getElementById("editSpeciesImage").value = specie.image;
+    document.getElementById("editSpeciesSource").value = specie.source;
+    document.getElementById("editSpeciesDescription").value = specie.description;
+    document.getElementById("editSpeciesDistribution").value = specie.distribution;
+    document.getElementById("editSpeciesConservation").value = specie.conservation;
+    
+    showModal("editSpeciesModal");
 }
 
 function renderComments(speciesId) {
@@ -1839,6 +1876,16 @@ function deleteComment(speciesId, commentId) {
         // Mostrar mensaje de éxito
         alert(translations[language].deleteSuccess);
     }
+}
+
+function deleteSpecies(id) {
+    const index = speciesData.findIndex(s => s.id === id);
+    if (index !== -1) {
+        speciesData.splice(index, 1);
+        saveSpeciesToLocalStorage();
+        return true;
+    }
+    return false;
 }
 
 function getStatusText(status) {
@@ -2387,9 +2434,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("confirmDeleteBtn").addEventListener("click", function() {
         const id = parseInt(document.getElementById("speciesToDeleteId").value);
         
-        const index = speciesData.findIndex(s => s.id === id);
-        if (index !== -1) {
-            speciesData.splice(index, 1);
+        if (deleteSpecies(id)) {
             hideModal("deleteConfirmModal");
             showPage("species");
             renderFullSpeciesList();
@@ -2423,6 +2468,7 @@ document.addEventListener("DOMContentLoaded", function() {
         };
         
         speciesData.push(newSpecie);
+        saveSpeciesToLocalStorage();
         
         showSuccess("addSpeciesSuccess");
         this.reset();
@@ -2452,6 +2498,8 @@ document.addEventListener("DOMContentLoaded", function() {
         specie.description = document.getElementById("editSpeciesDescription").value;
         specie.distribution = document.getElementById("editSpeciesDistribution").value;
         specie.conservation = document.getElementById("editSpeciesConservation").value;
+        
+        saveSpeciesToLocalStorage();
         
         showSuccess("editSpeciesSuccess");
         
