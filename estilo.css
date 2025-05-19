@@ -909,13 +909,45 @@ footer {
     background-color: #1e1e1e;
 }
 
-/* Corrección para controles de admin */
 #detailAdminControls {
     display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    gap: 10px;
 }
 
-.admin-visible #detailAdminControls {
-    display: flex !important;
+body.admin-visible #detailAdminControls {
+    display: flex;
+}
+
+#editSpeciesBtn, #deleteSpeciesBtn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+    opacity: 0.9;
+    transition: all 0.3s;
+}
+
+#editSpeciesBtn {
+    background-color: #2196F3;
+    color: white;
+}
+
+#deleteSpeciesBtn {
+    background-color: var(--error-color);
+    color: white;
+}
+
+#editSpeciesBtn:hover, #deleteSpeciesBtn:hover {
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 /* Responsive design */
