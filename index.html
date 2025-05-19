@@ -82,15 +82,14 @@
             </div>
         </div>
         
-        <!-- Species Detail Page -->
-        <div class="species-detail" id="speciesDetailPage">
-            <a href="#" class="back-btn" id="backToListBtn">← Volver al listado</a>
-            
-            <div class="species-detail-header">
-                <div class="species-detail-image">
-                    <img id="detailImage" src="" alt="Imagen de la especie">
-                </div>
-                <div class="species-detail-info">
+        <div class="species-detail" id="speciesDetailPage" style="position: relative;">
+    <a href="#" class="back-btn" id="backToListBtn">← Volver al listado</a>
+    
+    <div class="species-detail-header">
+        <div class="species-detail-image">
+            <img id="detailImage" src="" alt="Imagen de la especie">
+        </div>
+        <div class="species-detail-info">
                     <h2 id="detailName">Nombre de la especie</h2>
                     <div class="species-detail-meta">
                         <span class="meta-item" id="detailCategory">Categoría</span>
@@ -108,15 +107,12 @@
                     
                     <h3 id="conservationTitle">Conservación</h3>
                     <p id="detailConservation">Información sobre el estado de conservación...</p>
-                </div>
-            </div>
-            
-            <!-- Admin controls (visible only for admin) -->
-            <div class="admin-controls" id="detailAdminControls">
-                <button class="edit-btn" id="editSpeciesBtn">✏️</button>
-                <button class="delete-btn" id="deleteSpeciesBtn">🗑️</button>
-            </div>
-            
+                 </div>
+        <div id="detailAdminControls">
+            <button id="editSpeciesBtn">✏️</button>
+            <button id="deleteSpeciesBtn">🗑️</button>
+        </div>
+    </div>
             <!-- Comments Section -->
             <div class="comments-section">
                 <h3 id="commentsTitle">Comentarios</h3>
